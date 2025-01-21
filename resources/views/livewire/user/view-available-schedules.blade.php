@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
             let slotsSpan = document.createElement('span');
             slotsSpan.style.display = 'block';
             slotsSpan.style.marginTop = '35px';
-            slotsSpan.innerHTML = 'Slots: ' + arg.event.extendedProps.slots;
+            slotsSpan.innerHTML = 'Slots Available: ' + arg.event.extendedProps.slots;
             eventDiv.appendChild(slotsSpan);
 
             return { domNodes: [eventDiv] };
