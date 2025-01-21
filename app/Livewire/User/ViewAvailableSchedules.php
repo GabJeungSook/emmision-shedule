@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Livewire\Admin;
+namespace App\Livewire\User;
 
-use App\Models\Schedule;
 use Livewire\Component;
+use App\Models\Schedule;
 
-class Calendar extends Component
+class ViewAvailableSchedules extends Component
 {
     public $schedules;
 
@@ -16,6 +16,6 @@ class Calendar extends Component
 
     public function render()
     {
-        return view('livewire.admin.calendar');
+        return view('livewire.user.view-available-schedules');
     }
 }
