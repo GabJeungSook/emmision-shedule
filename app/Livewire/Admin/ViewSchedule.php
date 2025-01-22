@@ -28,11 +28,14 @@ class ViewSchedule extends Component implements HasForms, HasTable
     public function table(Table $table): Table
     {
         return $table
-            ->query(Transaction::query())
+            ->query(Transaction::query()->where('schedule_id', $this->record->id))
             ->columns([
-                // TextColumn::make('username')->searchable()->label('Username'),
-                // TextColumn::make('userDetails.FullName')->label('Full Name'),
-                // TextColumn::make('created_at')->label('Date Created')->dateTime()
+                TextColumn::make('transaction_number')->label('Transaction Number'),
+                 TextColumn::make('user.userDetails.FullName')->searchable()->label('Full Name'),
+                 TextColumn::make('schedule.date')->label('Date')->date('F j, Y'),
+                 TextColumn::make('convertHour')->label('Schedule'),
+                 TextColumn::make('vehicle.name')->label('Vehicle'),
+                 TextColumn::make('vehicle.amount')->label('Amount')->formatStateUsing(fn (?string $state) => '₱ '.number_format($state, 2))
             ])
             ->filters([
                 // ...
