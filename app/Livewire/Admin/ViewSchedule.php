@@ -2,16 +2,19 @@
 
 namespace App\Livewire\Admin;
 
-use App\Models\Schedule;
-use App\Models\Transaction;
+use Filament\Tables;
 use Livewire\Component;
-use Filament\Forms\Concerns\InteractsWithForms;
+use App\Models\Schedule;
+use Filament\Tables\Table;
+use App\Models\Transaction;
+use Filament\Actions\StaticAction;
+use Illuminate\Contracts\View\View;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
-use Filament\Tables\Table;
-use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Model;
+use Filament\Forms\Concerns\InteractsWithForms;
+use Filament\Tables\Concerns\InteractsWithTable;
 
 class ViewSchedule extends Component implements HasForms, HasTable
 {
@@ -41,7 +44,17 @@ class ViewSchedule extends Component implements HasForms, HasTable
                 // ...
             ])
             ->actions([
-                // ...
+                Tables\Actions\Action::make('View Receipt')
+                ->icon('heroicon-s-eye')
+                ->button()
+                ->color('success')
+                ->modalHeading('Receipt')
+                ->modalSubmitAction(false)
+                ->modalContent(function (Model $record) {
+                    return view('user.receipt', ['record' => $record]);
+                })
+                ->modalCancelAction(fn(StaticAction $action) => $action->label('Close'))
+                ->closeModalByClickingAway(false)->modalWidth('lg'),
             ])
             ->bulkActions([
                 // ...
