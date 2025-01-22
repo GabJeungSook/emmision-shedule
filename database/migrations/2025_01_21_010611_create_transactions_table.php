@@ -13,12 +13,15 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('vehicle_id');
+            $table->string('amount');
+            $table->string('payment_method');
+            $table->text('attachment')->nullable();
+            $table->foreignId('user_id')->constrained();
             $table->foreignId('schedule_id')->constrained();
             $table->integer('hour');
-            $table->string('transaction_id');
-            $table->string('payment_method');
+            $table->string('transaction_number');
             $table->string('status');
-            $table->string('amount');
             $table->timestamps();
         });
     }

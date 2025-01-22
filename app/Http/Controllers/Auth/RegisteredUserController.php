@@ -46,7 +46,7 @@ class RegisteredUserController extends Controller
             'address' => $request->address,
             'gender' => $request->gender,
             'email' => $request->email,
-            'phone' => $request->phone_number,
+            'phone' => $request->phone,
         ]);
 
         event(new Registered($user));

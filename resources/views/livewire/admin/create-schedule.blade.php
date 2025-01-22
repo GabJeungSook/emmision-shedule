@@ -6,16 +6,16 @@
     <p class="mt-5 italic">All schedules are selected by default</p>
     <div>
         @for ($hour = 8; $hour < 17; $hour++)
-            @if ($hour != 12)
             @php
             $displayHour = $hour > 12 ? $hour - 12 : $hour;
-            $period = $hour >= 11 ? 'pm' : 'am';
+            $nextDisplayHour = ($hour + 1) > 12 ? ($hour + 1) - 12 : ($hour + 1);
+            $period = $hour >= 12 ? 'pm' : 'am';
+            $nextPeriod = ($hour + 1) >= 12 ? 'pm' : 'am';
             @endphp
             <label class="inline-flex items-center m-2">
-                <input type="checkbox" wire:model="selectedHours.{{ $hour-7 }}" class="form-checkbox">
-                <span class="ml-2">{{ $displayHour }}-{{ $displayHour + 1 }}{{ $period }}</span>
+            <input type="checkbox" wire:model="selectedHours.{{ $hour-7 }}" class="form-checkbox">
+            <span class="ml-2">{{ $displayHour }}{{ $period }}-{{ $nextDisplayHour }}{{ $nextPeriod }}</span>
             </label>
-            @endif
         @endfor
     </div>
     <div class="mt-5 w-1/4">

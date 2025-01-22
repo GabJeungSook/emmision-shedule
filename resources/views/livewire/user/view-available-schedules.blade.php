@@ -13,7 +13,7 @@
                 'title' => 'Create Transaction',
                 'start' => $schedule->date,
                 'end' => $schedule->date,
-                'url' => route('admin.view-schedule', ['record' => $schedule->id]),
+                'url' => route('user.create-transaction', ['record' => $schedule->id]),
             ];
         }
     @endphp
@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', function() {
             info.jsEvent.preventDefault(); // don't let the browser navigate
             var eventObj = info.event;
             if (eventObj.url) {
-                window.open(eventObj.url, '_blank');
+                window.location.href = eventObj.url;
             }
         }
     });
