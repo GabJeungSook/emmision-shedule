@@ -174,7 +174,7 @@
       <!-- Sidebar component, swap this element with another sidebar if you like -->
       <div class="flex grow flex-col gap-y-5 overflow-y-auto bg-green-600 px-6">
         <div class="flex h-16 shrink-0 items-center font-extrabold text-white text-2xl tracking-wider">
-            Empire Emission Test Center
+            Emission Test Center
         </div>
         <nav class="flex flex-1 flex-col">
           <ul role="list" class="flex flex-1 flex-col gap-y-7">
@@ -182,7 +182,7 @@
             <li>
               <ul role="list" class="-mx-2 space-y-1">
                 <li>
-                  <a wire:navigate href="{{ route('dashboard') }}" class="{{ request()->routeIs('dashboard') ? 'group flex gap-x-3 rounded-md bg-green-700 p-2 text-sm/6 font-semibold text-white' : 'group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-green-200 hover:bg-green-700 hover:text-white' }}">
+                  <a wire:navigate href="{{ route('admin.dashboard') }}" class="{{ request()->routeIs('admin.dashboard') ? 'group flex gap-x-3 rounded-md bg-green-700 p-2 text-sm/6 font-semibold text-white' : 'group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-green-200 hover:bg-green-700 hover:text-white' }}">
                     <svg class="size-6 shrink-0 text-green-200 group-hover:text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
                       <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
                     </svg>
@@ -211,7 +211,7 @@
                         <svg class="size-6 shrink-0 text-green-200 group-hover:text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
                         </svg>
-                        Schedules
+                        Manage Schedules
                     </a>
                   </li>
                 <li>
@@ -225,27 +225,27 @@
               </ul>
             </li>
             <li>
-              <div class="text-xs/6 font-semibold text-green-200">Your teams</div>
+              <div class="text-xs/6 font-semibold text-green-200">Reports</div>
               <ul role="list" class="-mx-2 mt-2 space-y-1">
                 <li>
                   <!-- Current: "bg-green-700 text-white", Default: "text-green-200 hover:text-white hover:bg-green-700" -->
-                  <a href="#" class="group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-green-200 hover:bg-green-700 hover:text-white">
-                    <span class="flex size-6 shrink-0 items-center justify-center rounded-lg border border-green-400 bg-green-500 text-[0.625rem] font-medium text-white">H</span>
-                    <span class="truncate">Heroicons</span>
+                  <a wire:navigate href="{{ route('admin.user-report') }}" class="{{ request()->routeIs('admin.user-report') ? 'group flex gap-x-3 rounded-md bg-green-700 p-2 text-sm/6 font-semibold text-white' : 'group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-green-200 hover:bg-green-700 hover:text-white' }}">
+                    <span class="flex size-6 shrink-0 items-center justify-center rounded-lg border border-green-400 bg-green-500 text-[0.625rem] font-medium text-white">U</span>
+                    <span class="truncate">User Report</span>
                   </a>
                 </li>
                 <li>
-                  <a href="#" class="group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-green-200 hover:bg-green-700 hover:text-white">
+                  <a wire:navigate href="{{ route('admin.transaction-report') }}" class="{{ request()->routeIs('admin.transaction-report') ? 'group flex gap-x-3 rounded-md bg-green-700 p-2 text-sm/6 font-semibold text-white' : 'group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-green-200 hover:bg-green-700 hover:text-white' }}">
                     <span class="flex size-6 shrink-0 items-center justify-center rounded-lg border border-green-400 bg-green-500 text-[0.625rem] font-medium text-white">T</span>
-                    <span class="truncate">Tailwind Labs</span>
+                    <span class="truncate">Transaction Report</span>
                   </a>
                 </li>
-                <li>
+                {{-- <li>
                   <a href="#" class="group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-green-200 hover:bg-green-700 hover:text-white">
                     <span class="flex size-6 shrink-0 items-center justify-center rounded-lg border border-green-400 bg-green-500 text-[0.625rem] font-medium text-white">W</span>
                     <span class="truncate">Workcation</span>
                   </a>
-                </li>
+                </li> --}}
               </ul>
             </li>
 
@@ -265,11 +265,11 @@
               <li>
                 <ul role="list" class="-mx-2 space-y-1">
                   <li>
-                    <a wire:navigate href="{{ route('dashboard') }}" class="{{ request()->routeIs('dashboard') ? 'group flex gap-x-3 rounded-md bg-green-700 p-2 text-sm/6 font-semibold text-white' : 'group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-green-200 hover:bg-green-700 hover:text-white' }}">
+                    <a wire:navigate href="{{ route('user.dashboard') }}" class="{{ request()->routeIs('user.dashboard') ? 'group flex gap-x-3 rounded-md bg-green-700 p-2 text-sm/6 font-semibold text-white' : 'group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-green-200 hover:bg-green-700 hover:text-white' }}">
                       <svg class="size-6 shrink-0 text-green-200 group-hover:text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
                         <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
                       </svg>
-                      Dashboard
+                      My Profile
                     </a>
                   </li>
                   <li>
@@ -289,16 +289,16 @@
                     </a>
                   </li>
                   <li>
-                    <div class="text-xs/6 font-semibold text-green-200">Your teams</div>
+                    <div class="text-xs/6 font-semibold text-green-200">Reports</div>
                     <ul role="list" class="-mx-2 mt-2 space-y-1">
                       <li>
                         <!-- Current: "bg-green-700 text-white", Default: "text-green-200 hover:text-white hover:bg-green-700" -->
-                        <a href="#" class="group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-green-200 hover:bg-green-700 hover:text-white">
-                          <span class="flex size-6 shrink-0 items-center justify-center rounded-lg border border-green-400 bg-green-500 text-[0.625rem] font-medium text-white">H</span>
-                          <span class="truncate">Heroicons</span>
+                        <a wire:navigate href="{{ route('user.my-transactions') }}" class="{{ request()->routeIs('user.my-transactions') ? 'group flex gap-x-3 rounded-md bg-green-700 p-2 text-sm/6 font-semibold text-white' : 'group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-green-200 hover:bg-green-700 hover:text-white' }}">
+                          <span class="flex size-6 shrink-0 items-center justify-center rounded-lg border border-green-400 bg-green-500 text-[0.625rem] font-medium text-white">M</span>
+                          <span class="truncate">My Transactions</span>
                         </a>
                       </li>
-                      <li>
+                      {{-- <li>
                         <a href="#" class="group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-green-200 hover:bg-green-700 hover:text-white">
                           <span class="flex size-6 shrink-0 items-center justify-center rounded-lg border border-green-400 bg-green-500 text-[0.625rem] font-medium text-white">T</span>
                           <span class="truncate">Tailwind Labs</span>
@@ -309,7 +309,7 @@
                           <span class="flex size-6 shrink-0 items-center justify-center rounded-lg border border-green-400 bg-green-500 text-[0.625rem] font-medium text-white">W</span>
                           <span class="truncate">Workcation</span>
                         </a>
-                      </li>
+                      </li> --}}
                     </ul>
                   </li>
                   <li class="mr-16 mt-auto">

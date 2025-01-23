@@ -27,7 +27,7 @@ class Transactions extends Component implements HasForms, HasTable
             ->query(Transaction::query())
             ->columns([
                 TextColumn::make('transaction_number')->searchable()->label('Transaction Number'),
-                TextColumn::make('user.userDetails.fullName')->searchable()->label('Full Name'),
+                TextColumn::make('user.userDetails.fullName')->label('Full Name'),
                 TextColumn::make('schedule.date')->label('Date')->date('F j, Y'),
                 TextColumn::make('convertHour')->label('Schedule'),
                 TextColumn::make('payment_method')->label('Payment Method')->formatStateUsing(fn (?string $state) => strtoupper($state)),
@@ -39,6 +39,7 @@ class Transactions extends Component implements HasForms, HasTable
             ])
             ->actions([
                 Tables\Actions\Action::make('View')
+                ->label('View QR Code')
                 ->icon('heroicon-s-eye')
                 ->button()
                 ->color('success')
