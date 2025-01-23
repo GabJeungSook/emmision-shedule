@@ -31,7 +31,7 @@
   <body class="h-full">
   ```
 -->
-<div>
+<div x-data="{ open: false }">
     <!-- Off-canvas menu for mobile, show/hide based on off-canvas menu state. -->
     <div class="relative z-50 lg:hidden" role="dialog" aria-modal="true">
       <!--
@@ -44,9 +44,9 @@
           From: "opacity-100"
           To: "opacity-0"
       -->
-      <div class="fixed inset-0 bg-gray-900/80" aria-hidden="true"></div>
+      <div x-show="open" x-transition:enter="transition-opacity ease-linear duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition-opacity ease-linear duration-300" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="fixed inset-0 bg-gray-900/80" aria-hidden="true"></div>
 
-      <div class="fixed inset-0 flex">
+      <div x-show="open" x-transition:enter="transition ease-in-out duration-300 transform" x-transition:enter-start="-translate-x-full" x-transition:enter-end="translate-x-0" x-transition:leave="transition ease-in-out duration-300 transform" x-transition:leave-start="translate-x-0" x-transition:leave-end="-translate-x-full" class="fixed inset-0 flex">
         <!--
           Off-canvas menu, show/hide based on off-canvas menu state.
 
@@ -69,7 +69,7 @@
               To: "opacity-0"
           -->
           <div class="absolute left-full top-0 flex w-16 justify-center pt-5">
-            <button type="button" class="-m-2.5 p-2.5">
+            <button @click="open = false" type="button" class="-m-2.5 p-2.5">
               <span class="sr-only">Close sidebar</span>
               <svg class="size-6 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
@@ -85,83 +85,68 @@
             <nav class="flex flex-1 flex-col">
               <ul role="list" class="flex flex-1 flex-col gap-y-7">
                 <li>
-                  <ul role="list" class="-mx-2 space-y-1">
-                    <li>
-                      <!-- Current: "bg-green-700 text-white", Default: "text-green-200 hover:text-white hover:bg-green-700" -->
-                      <a href="#" class="group flex gap-x-3 rounded-md bg-green-700 p-2 text-sm/6 font-semibold text-white">
-                        <svg class="size-6 shrink-0 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
-                        </svg>
-                        Dashboard
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" class="group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-green-200 hover:bg-green-700 hover:text-white">
-                        <svg class="size-6 shrink-0 text-green-200 group-hover:text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
-                        </svg>
-                        Team
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" class="group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-green-200 hover:bg-green-700 hover:text-white">
-                        <svg class="size-6 shrink-0 text-green-200 group-hover:text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12.75V12A2.25 2.25 0 0 1 4.5 9.75h15A2.25 2.25 0 0 1 21.75 12v.75m-8.69-6.44-2.12-2.12a1.5 1.5 0 0 0-1.061-.44H4.5A2.25 2.25 0 0 0 2.25 6v12a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9a2.25 2.25 0 0 0-2.25-2.25h-5.379a1.5 1.5 0 0 1-1.06-.44Z" />
-                        </svg>
-                        Projects
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" class="group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-green-200 hover:bg-green-700 hover:text-white">
-                        <svg class="size-6 shrink-0 text-green-200 group-hover:text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
-                        </svg>
-                        Calendar
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" class="group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-green-200 hover:bg-green-700 hover:text-white">
-                        <svg class="size-6 shrink-0 text-green-200 group-hover:text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 0 1 1.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 0 0-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 0 1-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 0 0-3.375-3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H9.75" />
-                        </svg>
-                        Documents
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" class="group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-green-200 hover:bg-green-700 hover:text-white">
-                        <svg class="size-6 shrink-0 text-green-200 group-hover:text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 1 0 7.5 7.5h-7.5V6Z" />
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0 0 13.5 3v7.5Z" />
-                        </svg>
-                        Reports
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-                <li>
-                  <div class="text-xs/6 font-semibold text-green-200">Your teams</div>
-                  <ul role="list" class="-mx-2 mt-2 space-y-1">
-                    <li>
-                      <!-- Current: "bg-green-700 text-white", Default: "text-green-200 hover:text-white hover:bg-green-700" -->
-                      <a href="#" class="group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-green-200 hover:bg-green-700 hover:text-white">
-                        <span class="flex size-6 shrink-0 items-center justify-center rounded-lg border border-green-400 bg-green-500 text-[0.625rem] font-medium text-white">H</span>
-                        <span class="truncate">Heroicons</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" class="group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-green-200 hover:bg-green-700 hover:text-white">
-                        <span class="flex size-6 shrink-0 items-center justify-center rounded-lg border border-green-400 bg-green-500 text-[0.625rem] font-medium text-white">T</span>
-                        <span class="truncate">Tailwind Labs</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" class="group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-green-200 hover:bg-green-700 hover:text-white">
-                        <span class="flex size-6 shrink-0 items-center justify-center rounded-lg border border-green-400 bg-green-500 text-[0.625rem] font-medium text-white">W</span>
-                        <span class="truncate">Workcation</span>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
+                    <ul role="list" class="-mx-2 space-y-1">
+                      <li>
+                        <a wire:navigate href="{{ route('user.dashboard') }}" class="{{ request()->routeIs('user.dashboard') ? 'group flex gap-x-3 rounded-md bg-green-700 p-2 text-sm/6 font-semibold text-white' : 'group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-green-200 hover:bg-green-700 hover:text-white' }}">
+                          <svg class="size-6 shrink-0 text-green-200 group-hover:text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+                          </svg>
+                          My Profile
+                        </a>
+                      </li>
+                      <li>
+                        <a href="{{ route('user.view-schedules') }}" class="{{ request()->routeIs('user.view-schedules') || request()->routeIs('admin.create-schedule') || request()->routeIs('admin.view-schedule') ? 'group flex gap-x-3 rounded-md bg-green-700 p-2 text-sm/6 font-semibold text-white' : 'group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-green-200 hover:bg-green-700 hover:text-white' }}">
+                            <svg class="size-6 shrink-0 text-green-200 group-hover:text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
+                            </svg>
+                            Schedules
+                        </a>
+                      </li>
+                      <li>
+                        <a wire:navigate href="{{ route('user.view-transaction') }}" class="{{ request()->routeIs('user.view-transaction') ? 'group flex gap-x-3 rounded-md bg-green-700 p-2 text-sm/6 font-semibold text-white' : 'group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-green-200 hover:bg-green-700 hover:text-white' }}">
+                          <svg class="size-6 shrink-0 text-green-200 group-hover:text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12.75V12A2.25 2.25 0 0 1 4.5 9.75h15A2.25 2.25 0 0 1 21.75 12v.75m-8.69-6.44-2.12-2.12a1.5 1.5 0 0 0-1.061-.44H4.5A2.25 2.25 0 0 0 2.25 6v12a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9a2.25 2.25 0 0 0-2.25-2.25h-5.379a1.5 1.5 0 0 1-1.06-.44Z" />
+                          </svg>
+                          Transactions
+                        </a>
+                      </li>
+                      <li>
+                        <div class="text-xs/6 font-semibold text-green-200">Reports</div>
+                        <ul role="list" class="-mx-2 mt-2 space-y-1">
+                          <li>
+                            <!-- Current: "bg-green-700 text-white", Default: "text-green-200 hover:text-white hover:bg-green-700" -->
+                            <a wire:navigate href="{{ route('user.my-transactions') }}" class="{{ request()->routeIs('user.my-transactions') ? 'group flex gap-x-3 rounded-md bg-green-700 p-2 text-sm/6 font-semibold text-white' : 'group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-green-200 hover:bg-green-700 hover:text-white' }}">
+                              <span class="flex size-6 shrink-0 items-center justify-center rounded-lg border border-green-400 bg-green-500 text-[0.625rem] font-medium text-white">M</span>
+                              <span class="truncate">My Transactions</span>
+                            </a>
+                          </li>
+                          {{-- <li>
+                            <a href="#" class="group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-green-200 hover:bg-green-700 hover:text-white">
+                              <span class="flex size-6 shrink-0 items-center justify-center rounded-lg border border-green-400 bg-green-500 text-[0.625rem] font-medium text-white">T</span>
+                              <span class="truncate">Tailwind Labs</span>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="#" class="group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-green-200 hover:bg-green-700 hover:text-white">
+                              <span class="flex size-6 shrink-0 items-center justify-center rounded-lg border border-green-400 bg-green-500 text-[0.625rem] font-medium text-white">W</span>
+                              <span class="truncate">Workcation</span>
+                            </a>
+                          </li> --}}
+                        </ul>
+                      </li>
+                      <li class="mr-16 mt-auto">
+                        <form action="{{route('logout')}}" method="POST">
+                            @csrf
+                            <button class="m-4 w-full group flex gap-x-3 rounded-md py-2 text-sm/6 font-semibold text-green-200 hover:bg-green-700 hover:text-white">
+                                <svg class="h-6 w-6 shrink-0 text-gray-100 group-hover:text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3" />
+                                  </svg>
+                                Logout
+                            </button>
+                        </form>
+                      </li>
+                    </ul>
+                  </li>
               </ul>
             </nav>
           </div>
@@ -331,7 +316,7 @@
       </div>
     </div>
 
-    <div class="sticky top-0 z-40 flex items-center gap-x-6 bg-green-600 px-4 py-4 shadow-sm sm:px-6 lg:hidden">
+    <div @click="open = true" class="sticky top-0 z-40 flex items-center gap-x-6 bg-green-600 px-4 py-4 shadow-sm sm:px-6 lg:hidden">
       <button type="button" class="-m-2.5 p-2.5 text-green-200 lg:hidden">
         <span class="sr-only">Open sidebar</span>
         <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
