@@ -79,8 +79,9 @@
 
           <!-- Sidebar component, swap this element with another sidebar if you like -->
           <div class="flex grow flex-col gap-y-5 overflow-y-auto bg-green-600 px-6 pb-2">
-            <div class="flex h-16 shrink-0 items-center">
-              <img class="h-8 w-auto" src="https://tailwindui.com/plus/img/logos/mark.svg?color=white" alt="Your Company">
+            <div class="flex h-16 shrink-0 items-center font-extrabold text-white text-2xl tracking-wider">
+                    Emission Test Center
+              {{-- <img class="h-8 w-auto" src="https://tailwindui.com/plus/img/logos/mark.svg?color=white" alt="Your Company"> --}}
             </div>
             <nav class="flex flex-1 flex-col">
               <ul role="list" class="flex flex-1 flex-col gap-y-7">
@@ -326,7 +327,7 @@
       <div class="flex-1 text-sm/6 font-semibold text-white">Dashboard</div>
       <a href="#">
         <span class="sr-only">Your profile</span>
-        <img class="size-8 rounded-full bg-green-700" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+        {{-- <img class="size-8 rounded-full bg-green-700" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt=""> --}}
       </a>
     </div>
 
