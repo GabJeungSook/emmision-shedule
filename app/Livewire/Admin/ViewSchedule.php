@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Admin;
 
+use App\Models\Application;
 use Filament\Tables;
 use Livewire\Component;
 use App\Models\Schedule;
@@ -31,30 +32,28 @@ class ViewSchedule extends Component implements HasForms, HasTable
     public function table(Table $table): Table
     {
         return $table
-            ->query(Transaction::query()->where('schedule_id', $this->record->id))
+            ->query(Application::query()->where('schedule_id', $this->record->id))
             ->columns([
                 TextColumn::make('transaction_number')->label('Transaction Number'),
                  TextColumn::make('user.userDetails.FullName')->searchable()->label('Full Name'),
                  TextColumn::make('schedule.date')->label('Date')->date('F j, Y'),
                  TextColumn::make('convertHour')->label('Schedule'),
-                 TextColumn::make('vehicle.name')->label('Vehicle'),
-                 TextColumn::make('vehicle.amount')->label('Amount')->formatStateUsing(fn (?string $state) => '₱ '.number_format($state, 2))
             ])
             ->filters([
                 // ...
             ])
             ->actions([
-                Tables\Actions\Action::make('View Receipt')
-                ->icon('heroicon-s-eye')
-                ->button()
-                ->color('success')
-                ->modalHeading('Receipt')
-                ->modalSubmitAction(false)
-                ->modalContent(function (Model $record) {
-                    return view('user.receipt', ['record' => $record]);
-                })
-                ->modalCancelAction(fn(StaticAction $action) => $action->label('Close'))
-                ->closeModalByClickingAway(false)->modalWidth('lg'),
+                // Tables\Actions\Action::make('View Receipt')
+                // ->icon('heroicon-s-eye')
+                // ->button()
+                // ->color('success')
+                // ->modalHeading('Receipt')
+                // ->modalSubmitAction(false)
+                // ->modalContent(function (Model $record) {
+                //     return view('user.receipt', ['record' => $record]);
+                // })
+                // ->modalCancelAction(fn(StaticAction $action) => $action->label('Close'))
+                // ->closeModalByClickingAway(false)->modalWidth('lg'),
             ])
             ->bulkActions([
                 // ...
