@@ -1,28 +1,33 @@
 <?php
 
+use App\Models\Application;
 use App\Livewire\Admin\Users;
 use App\Livewire\Admin\Calendar;
-use App\Livewire\Admin\Transactions;
-use Illuminate\Support\Facades\Route;
-use App\Livewire\Admin\CreateSchedule;
-use App\Http\Controllers\ProfileController;
 use App\Livewire\Admin\Dashboard;
-use App\Livewire\Admin\TransactionReport;
 use App\Livewire\Admin\UserReport;
 use App\Livewire\Admin\VehicleType;
+use App\Livewire\User\Applications;
+use App\Livewire\Admin\Transactions;
 use App\Livewire\Admin\ViewSchedule;
-use App\Livewire\User\CreateTransaction;
-use App\Livewire\User\MyTransactions;
 use App\Livewire\User\UserDashboard;
-use App\Livewire\User\ViewAvailableSchedules;
+use Illuminate\Support\Facades\Auth;
+use App\Livewire\User\MyTransactions;
+use Illuminate\Support\Facades\Route;
+use App\Livewire\Admin\CreateSchedule;
 use App\Livewire\User\ViewTransaction;
+use App\Livewire\User\CreateTransaction;
+use App\Livewire\User\ManageAppointment;
+use App\Livewire\Admin\TransactionReport;
+use App\Http\Controllers\ProfileController;
+use App\Livewire\User\ViewApplication;
+use App\Livewire\User\ViewAvailableSchedules;
 
 Route::get('/', function () {
     return redirect()->route('login');
 });
 
 Route::get('/dashboard', function () {
-   if (auth()->user()->role == 'admin') {
+   if (Auth::user()->role == 'admin') {
        return redirect()->route('admin.dashboard');
     } else {
         return redirect()->route('user.dashboard');
@@ -48,5 +53,7 @@ Route::get('/user/dashboard', UserDashboard::class)->middleware(['auth', 'verifi
 Route::get('/user/view-transaction', ViewTransaction::class)->middleware(['auth', 'verified'])->name('user.view-transaction');
 Route::get('/user/create-transaction/{record}', CreateTransaction::class)->middleware(['auth', 'verified'])->name('user.create-transaction');
 Route::get('/user/view-schedules', ViewAvailableSchedules::class)->middleware(['auth', 'verified'])->name('user.view-schedules');
+Route::get('/user/applications', Applications::class)->middleware(['auth', 'verified'])->name('user.applications');
+Route::get('/user/view-application/{record}', ViewApplication::class)->middleware(['auth', 'verified'])->name('user.view-application');
 Route::get('/user/my-transactions', MyTransactions::class)->middleware(['auth', 'verified'])->name('user.my-transactions');
 require __DIR__.'/auth.php';

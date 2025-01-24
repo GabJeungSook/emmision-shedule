@@ -1,11 +1,33 @@
 <div>
-    <div class="mt-10 text-4xl font-bold mb-4">
+    <div class="mt-5 text-4xl font-bold mb-4">
         Schedules
     </div>
-    <span class="italic">Click a date to create a transaction</span>
+    <span class="italic">Select a date to create an application</span>
+    <div class="mt-10">
+        <ul role="list" class="space-y-3">
+            @forelse ($schedules as $schedule)
+            @php
+            $slot_taken = $transactions->where('schedule_id', $schedule->id)->whereIn('hour', json_decode($schedule->hours))->count();
+            @endphp
+            <li class="overflow-hidden bg-white px-4 py-4 shadow-lg sm:rounded-md sm:px-6 hover:bg-gray-300 rounded-md">
+                <a href="{{ route('user.create-transaction', ['record' => $schedule->id]) }}">
+                    <span class="font-semibold text-lg">{{ Carbon\Carbon::parse($schedule->date)->format('F d, Y') }}</span>
+                    <p>Slots Remaining: {{ ($schedule->slots * count(json_decode($schedule->hours))) - $slot_taken }}</p>
+                </a>
+            </li>
+            @empty
+                <li class="overflow-hidden bg-white px-4 py-4 shadow sm:rounded-md sm:px-6">
+                    <span>No schedules available</span>
+                </li>
+            @endforelse
+            <!-- More items... -->
+          </ul>
+
+    </div>
+    {{-- <span class="italic">Click a date to create a transaction</span>
     <div class="p-4 mt-5">
         <div id='calendar'></div>
-    </div>
+    </div> --}}
     @php
         $transactions = \App\Models\Transaction::get();
 

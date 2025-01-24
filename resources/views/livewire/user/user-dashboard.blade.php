@@ -1,5 +1,5 @@
 <div>
-    <div class="mt-10 text-4xl font-bold mb-4">
+    <div class="mt-5 text-4xl font-bold mb-4">
         My Profile
     </div>
     <div>
