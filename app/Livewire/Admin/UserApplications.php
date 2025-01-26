@@ -16,44 +16,44 @@ use Filament\Tables\Contracts\HasTable;
 use Illuminate\Database\Eloquent\Model;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Tables\Concerns\InteractsWithTable;
+use Filament\Notifications\Notification;
 
-class ViewSchedule extends Component implements HasForms, HasTable
+
+class UserApplications extends Component implements HasForms, HasTable
 {
     use InteractsWithTable;
     use InteractsWithForms;
 
-    public $record;
-
-    public function mount($record)
-    {
-        $this->record = Schedule::find($record);
-    }
-
     public function table(Table $table): Table
     {
         return $table
-            ->query(Application::query()->where('schedule_id', $this->record->id))
+            ->query(Application::query())
             ->columns([
                 TextColumn::make('transaction_number')->label('Transaction Number'),
                  TextColumn::make('user.userDetails.FullName')->searchable()->label('Full Name'),
                  TextColumn::make('schedule.date')->label('Schedule Date')->date('F j, Y'),
-                 TextColumn::make('convertHour')->label('Time'),
+                 TextColumn::make('convertHour')->label('TIme'),
+                 TextColumn::make('status')->label('Status')->formatStateUsing(fn ($record) => strtoupper($record->status)),
             ])
             ->filters([
                 // ...
             ])
             ->actions([
-                // Tables\Actions\Action::make('View Receipt')
-                // ->icon('heroicon-s-eye')
-                // ->button()
-                // ->color('success')
-                // ->modalHeading('Receipt')
-                // ->modalSubmitAction(false)
-                // ->modalContent(function (Model $record) {
-                //     return view('user.receipt', ['record' => $record]);
-                // })
-                // ->modalCancelAction(fn(StaticAction $action) => $action->label('Close'))
-                // ->closeModalByClickingAway(false)->modalWidth('lg'),
+                Tables\Actions\Action::make('Approve')
+                ->icon('heroicon-s-check-circle')
+                ->button()
+                ->color('success')
+                ->action(function ($record) {
+                    $record->status = "For Payment";
+                    $record->save();
+
+                    Notification::make()
+                    ->title('Application approved')
+                    ->body('application can now proceed to payment transaction')
+                    ->success()
+                    ->send();
+
+                })->requiresConfirmation()->visible(fn ($record) => $record->status === 'Pending'),
             ])
             ->bulkActions([
                 // ...
@@ -62,6 +62,6 @@ class ViewSchedule extends Component implements HasForms, HasTable
 
     public function render()
     {
-        return view('livewire.admin.view-schedule');
+        return view('livewire.admin.user-applications');
     }
 }
