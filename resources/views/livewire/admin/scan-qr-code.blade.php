@@ -26,11 +26,11 @@
         setInterval(ensureFocus, 100);
 
         // Prevent default behavior of clicking away
-        document.addEventListener('click', (e) => {
-            if (e.target.id !== 'qrInput' && e.target.tagName !== 'BUTTON') {
-                e.preventDefault();
-                qrInput.focus();
-            }
-        });
+        // document.addEventListener('click', (e) => {
+        //     if (e.target.id !== 'qrInput' && e.target.tagName !== 'BUTTON') {
+        //         e.preventDefault();
+        //         qrInput.focus();
+        //     }
+        // });
     }
 </script>

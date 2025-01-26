@@ -1,10 +1,10 @@
-<div wire:ignore>
+<div>
     <div class="mt-10 text-4xl font-bold mb-4">
         Schedules
     </div>
     <span class="italic">Click a date to add a schedule</span>
     <div class="p-4 mt-5">
-        <div id='calendar'></div>
+        <div  wire:ignore id='calendar'></div>
     </div>
     @php
         $events = [];
