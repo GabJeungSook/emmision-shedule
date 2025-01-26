@@ -88,7 +88,14 @@ class Transactions extends Component implements HasForms, HasTable
                     ->body('transaction can now proceed to emission')
                     ->success()
                     ->send();
-                })->requiresConfirmation()->visible(fn ($record) => $record->status === "Paid")
+                })->requiresConfirmation()->visible(fn ($record) => $record->status === "Paid"),
+                Tables\Actions\Action::make('add_result')
+                ->label("Add Result")
+                ->icon('heroicon-s-plus')
+                ->button()
+                ->color('success')
+                ->url(fn (UserPayment $record): string => route('admin.add-result', $record))
+                ->openUrlInNewTab(),
             ])
             ->bulkActions([
                 // ...

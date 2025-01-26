@@ -9,6 +9,7 @@ use App\Livewire\Admin\VehicleType;
 use App\Livewire\User\Applications;
 use App\Livewire\Admin\Transactions;
 use App\Livewire\Admin\ViewSchedule;
+use App\Livewire\Admin\AddResult;
 use App\Livewire\User\UserDashboard;
 use Illuminate\Support\Facades\Auth;
 use App\Livewire\User\MyTransactions;
@@ -19,6 +20,7 @@ use App\Livewire\User\CreateTransaction;
 use App\Livewire\User\ManageAppointment;
 use App\Livewire\Admin\TransactionReport;
 use App\Livewire\Admin\UserApplications;
+use App\Livewire\Admin\ScanQrCode;
 use App\Http\Controllers\ProfileController;
 use App\Livewire\User\ViewApplication;
 use App\Livewire\User\ViewAvailableSchedules;
@@ -54,6 +56,9 @@ Route::get('/admin/create-schedule', CreateSchedule::class)->middleware(['auth',
 Route::get('/admin/view-schedule/{record}', ViewSchedule::class)->middleware(['auth', 'verified'])->name('admin.view-schedule');
 Route::get('/admin/user-report', UserReport::class)->middleware(['auth', 'verified'])->name('admin.user-report');
 Route::get('/admin/transaction-report', TransactionReport::class)->middleware(['auth', 'verified'])->name('admin.transaction-report');
+Route::get('/admin/add-result/{record}', AddResult::class)->middleware(['auth', 'verified'])->name('admin.add-result');
+Route::get('/admin/scan-qr', ScanQrCode::class)->middleware(['auth', 'verified'])->name('admin.scan-qr');
+
 
 Route::get('/user/dashboard', UserDashboard::class)->middleware(['auth', 'verified'])->name('user.dashboard');
 Route::get('/user/view-transaction', ViewTransaction::class)->middleware(['auth', 'verified'])->name('user.view-transaction');
