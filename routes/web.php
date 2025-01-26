@@ -25,13 +25,14 @@ use App\Livewire\User\ViewAvailableSchedules;
 use App\Livewire\User\CreatePayment;
 use App\Livewire\User\UserTransactionDetails;
 use App\Livewire\User\UserReceipt;
+use App\Livewire\User\UserQrCode;
 
 Route::get('/', function () {
     return redirect()->route('login');
 });
 
 Route::get('/dashboard', function () {
-   if (Auth::user()->role == 'admin') {
+   if (Auth::user()->role === 'admin') {
        return redirect()->route('admin.dashboard');
     } else {
         return redirect()->route('user.dashboard');
@@ -64,5 +65,6 @@ Route::get('/user/my-transactions', MyTransactions::class)->middleware(['auth', 
 Route::get('/user/user-payment/{record}', CreatePayment::class)->middleware(['auth', 'verified'])->name('user.user-payment');
 Route::get('/user/transaction-details/{record}', UserTransactionDetails::class)->middleware(['auth', 'verified'])->name('user.transaction-details');
 Route::get('/user/user-receipt/{record}', UserReceipt::class)->middleware(['auth', 'verified'])->name('user.user-receipt');
+Route::get('/user/user-qr-code/{record}', UserQrCode::class)->middleware(['auth', 'verified'])->name('user.user-qr-code');
 
 require __DIR__.'/auth.php';

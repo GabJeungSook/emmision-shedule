@@ -7,7 +7,12 @@
         <ul role="list" class="space-y-3">
             @forelse ($schedules as $schedule)
             @php
-            $slot_taken = $transactions->where('schedule_id', $schedule->id)->whereIn('hour', json_decode($schedule->hours))->count();
+            $slot_taken = $transactions
+            ->where('application.schedule_id', $schedule->id)
+            ->filter(function ($transaction) use ($schedule) {
+                return $transaction->application->whereIn('hour', json_decode($schedule->hours));
+            })->where('status', 'Approved')
+            ->count();
             @endphp
             <li class="overflow-hidden bg-white px-4 py-4 shadow-lg sm:rounded-md sm:px-6 hover:bg-gray-300 rounded-md">
                 <a href="{{ route('user.create-transaction', ['record' => $schedule->id]) }}">

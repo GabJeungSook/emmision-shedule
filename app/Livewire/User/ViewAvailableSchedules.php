@@ -4,7 +4,7 @@ namespace App\Livewire\User;
 
 use Livewire\Component;
 use App\Models\Schedule;
-use App\Models\Transaction;
+use App\Models\UserPayment;
 
 class ViewAvailableSchedules extends Component
 {
@@ -14,7 +14,7 @@ class ViewAvailableSchedules extends Component
     public function mount()
     {
         $this->schedules = Schedule::all();
-        $this->transactions = Transaction::get();
+        $this->transactions = UserPayment::get();
     }
 
     public function render()

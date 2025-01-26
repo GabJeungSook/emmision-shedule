@@ -33,8 +33,8 @@
           <div class="mt-3 ml-4 flex items-center justify-start gap-x-3">
             <a href="{{route('user.view-transaction')}}" class="rounded-md bg-gray-200 px-3 py-2 text-sm font-semibold text-gray-600 shadow-sm hover:bg-gray-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">Cancel</a>
             <a href="{{route('user.user-receipt', $record->id)}}" type="button" class="rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">View Receipt</a>
-            @if($record->status != "Pending")
-            {{-- <a href="{{route('user.user-payment', $record->id)}}" type="button" class="rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">Proceed to payment</a> --}}
+            @if($record->status === "Approved")
+            <a href="{{route('user.user-qr-code', $record->id)}}" type="button" class="rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">View QR Code</a>
             @endif
           </div>
       </div>
