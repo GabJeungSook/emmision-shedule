@@ -12,18 +12,31 @@ class ScanQrCode extends Component
 
     public function redirectToTransaction()
     {
+        $code = trim($this->scannedCode);
         $transaction = UserPayment::where('transaction_number', $this->scannedCode)->first();
 
-        if($transaction)
+
+        if($transaction && $transaction->status == 'Approved')
         {
             return redirect()->route('admin.add-result', $transaction->id);
-        }else{
+        }elseif($transaction->status != 'Approved')
+        {
+            Notification::make()
+            ->title('Trasaction Not Approved')
+            ->body('QR Code is not valid. Wait for the approval of the transaction')
+            ->danger()
+            ->send();
+
+            $this->scannedCode = null;
+
+        }
+        else{
             Notification::make()
             ->title('Trasaction Not found')
             ->body('QR Code does not exist')
             ->danger()
             ->send();
-        
+
             $this->scannedCode = null;
         }
     }

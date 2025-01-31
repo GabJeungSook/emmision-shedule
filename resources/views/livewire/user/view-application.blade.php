@@ -30,10 +30,14 @@
               </dl>
             </div>
           </div>
-          <div class="mt-3 ml-4 flex items-center justify-start gap-x-3">
+          <div class="mt-3 ml-2 flex items-center justify-start gap-x-3">
             <a href="{{route('user.applications')}}" class="rounded-md bg-gray-200 px-3 py-2 text-sm font-semibold text-gray-600 shadow-sm hover:bg-gray-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">Cancel</a>
             @if($record->status != 'Pending')
             <a href="{{route('user.user-payment', $record->id)}}" type="button" class="rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">Proceed to payment</a>
+            @else
+            <a href="{{ asset('storage/' . $record->attachment) }}" target="_blank" download="receipt.png" type="button" class="rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">
+                Download OR\CR
+            </a>
             @endif
           </div>
       </div>

@@ -41,17 +41,6 @@ class Transactions extends Component implements HasForms, HasTable
                 // ...
             ])
             ->actions([
-                // Tables\Actions\Action::make('View')
-                // ->icon('heroicon-s-eye')
-                // ->button()
-                // ->color('success')
-                // ->modalHeading('Transaction QR Code')
-                // ->modalSubmitAction(false)
-                // ->modalContent(function (Model $record) {
-                //     return view('user.qr-code', ['record' => $record]);
-                // })
-                // ->modalCancelAction(fn(StaticAction $action) => $action->label('Close'))
-                // ->closeModalByClickingAway(false)->modalWidth('lg'),
                 Tables\Actions\Action::make('View Receipt')
                 ->icon('heroicon-s-eye')
                 ->button()
@@ -74,7 +63,7 @@ class Transactions extends Component implements HasForms, HasTable
                     return view('user.qr-code', ['record' => $record]);
                 })
                 ->modalCancelAction(fn(StaticAction $action) => $action->label('Close'))
-                ->closeModalByClickingAway(false)->modalWidth('lg'),
+                ->closeModalByClickingAway(false)->modalWidth('lg')->visible(fn ($record) => $record->status === "Approved"),
                 Tables\Actions\Action::make('Approve Payment')
                 ->icon('heroicon-s-check-circle')
                 ->button()
@@ -88,14 +77,14 @@ class Transactions extends Component implements HasForms, HasTable
                     ->body('transaction can now proceed to emission')
                     ->success()
                     ->send();
-                })->requiresConfirmation()->visible(fn ($record) => $record->status === "Paid"),
+                })->requiresConfirmation()->visible(fn ($record) => $record->status === "Pending"),
                 Tables\Actions\Action::make('add_result')
                 ->label("Add Result")
                 ->icon('heroicon-s-plus')
                 ->button()
                 ->color('success')
                 ->url(fn (UserPayment $record): string => route('admin.add-result', $record))
-                ->openUrlInNewTab(),
+                ->openUrlInNewTab()->visible(fn ($record) => $record->status === "Approved"),
             ])
             ->bulkActions([
                 // ...

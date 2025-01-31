@@ -23,7 +23,7 @@
             </div>
         </div>
         <div class="mt-4 grid grid-cols-1">
-        {{-- {{$this->form}} --}}
+        {{$this->form}}
         </div>
         </div>
         <div class="mt-3 flex items-center justify-start gap-x-3">

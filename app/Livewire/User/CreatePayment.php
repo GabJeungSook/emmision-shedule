@@ -18,11 +18,12 @@ use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Hidden;
 use Illuminate\Support\Facades\Auth;
 use Filament\Forms\Set;
+use DB;
 
 class CreatePayment extends Component implements HasForms
 {
     use InteractsWithForms;
-    
+
     public $record;
     public $user;
     public ?array $data = [];
@@ -72,15 +73,15 @@ class CreatePayment extends Component implements HasForms
         $this->validate();
 
         $payment = UserPayment::create($this->form->getState());
-        $record->status = 'Paid';
-        $record->save();
+        $this->record->status = 'Paid';
+        $this->record->save();
 
         Notification::make()
         ->title('Payment saved successfully')
         ->success()
         ->send();
 
-        return redirect()->route('user.view-application', $this->record->id);
+        return redirect()->route('user.transaction-details', $this->record->id);
     }
 
     public function render()

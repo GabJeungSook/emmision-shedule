@@ -22,4 +22,9 @@ class UserPayment extends Model
     {
         return $this->belongsTo(Vehicle::class);
     }
+
+    public function result()
+    {
+        return $this->hasOne(Result::class);
+    }
 }

@@ -11,14 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('applications', function (Blueprint $table) {
+        Schema::create('results', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_payment_id')->constrained();
             $table->foreignId('user_id')->constrained();
-            $table->foreignId('schedule_id')->constrained();
-            $table->string('transaction_number')->nullable();
-            $table->integer('hour');
-            $table->string('status')->default('Pending');
-            $table->text('attachment')->nullable();
+            $table->text('result');
             $table->timestamps();
         });
     }
@@ -28,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('applications');
+        Schema::dropIfExists('results');
     }
 };

@@ -20,6 +20,8 @@
             <x-text-input id="phone" class="block my-1 w-full" type="text" name="phone" :value="old('phone')" required autofocus autocomplete="phone" />
             <x-input-label for="email" :value="__('Email')" />
             <x-text-input id="email" class="block my-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="email" />
+            <x-input-label for="plate_number" :value="__('Plate Number')" />
+            <x-text-input id="plate_number" class="block my-1 w-full" type="text" name="plate_number" :value="old('plate_number')" required autofocus autocomplete="plate_number" />
             <x-input-label for="username" :value="__('Username')" />
             <x-text-input id="username" class="block mt-1 w-full" type="text" name="username" :value="old('username')" required autofocus autocomplete="username" />
             <x-input-error :messages="$errors->get('username')" class="mt-2" />

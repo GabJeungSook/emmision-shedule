@@ -39,6 +39,18 @@ class UserApplications extends Component implements HasForms, HasTable
                 // ...
             ])
             ->actions([
+                Tables\Actions\Action::make('view_or_cr')
+                ->label('View OR/CR')
+                ->icon('heroicon-s-eye')
+                ->button()
+                ->color('success')
+                ->modalHeading('OR/CR')
+                ->modalSubmitAction(false)
+                ->modalContent(function (Model $record) {
+                    return view('user.or_cr', ['record' => $record]);
+                })
+                ->modalCancelAction(fn(StaticAction $action) => $action->label('Close'))
+                ->closeModalByClickingAway(false)->modalWidth('2xl')->visible(fn ($record) => $record->status === 'Pending'),
                 Tables\Actions\Action::make('Approve')
                 ->icon('heroicon-s-check-circle')
                 ->button()

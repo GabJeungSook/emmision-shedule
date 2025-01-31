@@ -22,9 +22,11 @@ use App\Livewire\Admin\TransactionReport;
 use App\Livewire\Admin\UserApplications;
 use App\Livewire\Admin\ScanQrCode;
 use App\Http\Controllers\ProfileController;
+use App\Livewire\Admin\Results;
 use App\Livewire\User\ViewApplication;
 use App\Livewire\User\ViewAvailableSchedules;
 use App\Livewire\User\CreatePayment;
+use App\Livewire\User\TransactionResult;
 use App\Livewire\User\UserTransactionDetails;
 use App\Livewire\User\UserReceipt;
 use App\Livewire\User\UserQrCode;
@@ -58,7 +60,7 @@ Route::get('/admin/user-report', UserReport::class)->middleware(['auth', 'verifi
 Route::get('/admin/transaction-report', TransactionReport::class)->middleware(['auth', 'verified'])->name('admin.transaction-report');
 Route::get('/admin/add-result/{record}', AddResult::class)->middleware(['auth', 'verified'])->name('admin.add-result');
 Route::get('/admin/scan-qr', ScanQrCode::class)->middleware(['auth', 'verified'])->name('admin.scan-qr');
-
+Route::get('/admin/results', Results::class)->middleware(['auth', 'verified'])->name('admin.results');
 
 Route::get('/user/dashboard', UserDashboard::class)->middleware(['auth', 'verified'])->name('user.dashboard');
 Route::get('/user/view-transaction', ViewTransaction::class)->middleware(['auth', 'verified'])->name('user.view-transaction');
@@ -71,5 +73,6 @@ Route::get('/user/user-payment/{record}', CreatePayment::class)->middleware(['au
 Route::get('/user/transaction-details/{record}', UserTransactionDetails::class)->middleware(['auth', 'verified'])->name('user.transaction-details');
 Route::get('/user/user-receipt/{record}', UserReceipt::class)->middleware(['auth', 'verified'])->name('user.user-receipt');
 Route::get('/user/user-qr-code/{record}', UserQrCode::class)->middleware(['auth', 'verified'])->name('user.user-qr-code');
+Route::get('/user/transaction-result/{record}', TransactionResult::class)->middleware(['auth', 'verified'])->name('user.transaction-result');
 
 require __DIR__.'/auth.php';
