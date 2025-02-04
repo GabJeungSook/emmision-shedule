@@ -66,12 +66,6 @@ class UserApplications extends Component implements HasForms, HasTable
                     $record->status = "For Payment";
                     $record->save();
 
-                    Notification::make()
-                    ->title('Application approved')
-                    ->body('application can now proceed to payment transaction')
-                    ->success()
-                    ->send();
-
                 })->requiresConfirmation()->visible(fn ($record) => $record->status === 'Pending'),
             ])
             ->bulkActions([
