@@ -71,8 +71,8 @@ class CreateTransaction extends Component implements HasForms
             Application::create($this->form->getState());
 
             Notification::make()
-            ->title('Application saved successfully')
-            ->body('Please wait for the admin to approve your application')
+            ->title('Payment saved successfully')
+            ->body('Please wait for the admin to approve your payment application')
             ->success()
             ->send();
 

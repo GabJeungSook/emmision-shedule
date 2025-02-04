@@ -57,14 +57,33 @@ class UserApplications extends Component implements HasForms, HasTable
                 ->button()
                 ->color('success')
                 ->action(function (Model $record) {
+
+                    $record->status = "For Payment";
+                    $record->save();
+
                     Mail::to($record->user->userDetails->email)->send(new ApplicationStatus($record));
                     Notification::make()
                     ->title('Application approved')
                     ->success()
                     ->body('Application can now proceed to payment transaction. An email was sent to the customer.')
                     ->send();
-                    $record->status = "For Payment";
+
+                })->requiresConfirmation()->visible(fn ($record) => $record->status === 'Pending'),
+                Tables\Actions\Action::make('Reject')
+                ->icon('heroicon-s-x-circle')
+                ->button()
+                ->color('danger')
+                ->action(function (Model $record) {
+
+                    $record->status = "Rejected";
                     $record->save();
+
+                    Mail::to($record->user->userDetails->email)->send(new ApplicationStatus($record));
+                    Notification::make()
+                    ->title('Application rejected')
+                    ->danger()
+                    ->body('Application was rejected. An email was sent to the customer.')
+                    ->send();
 
                 })->requiresConfirmation()->visible(fn ($record) => $record->status === 'Pending'),
             ])

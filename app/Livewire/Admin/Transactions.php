@@ -74,8 +74,22 @@ class Transactions extends Component implements HasForms, HasTable
 
                     Notification::make()
                     ->title('Payment approved')
-                    ->body('transaction can now proceed to emission')
+                    ->body('Transaction can now proceed to emission')
                     ->success()
+                    ->send();
+                })->requiresConfirmation()->visible(fn ($record) => $record->status === "Pending"),
+                Tables\Actions\Action::make('Reject Payment')
+                ->icon('heroicon-s-x-circle')
+                ->button()
+                ->color('danger')
+                ->action(function ($record) {
+                    $record->status = "Rejected";
+                    $record->save();
+
+                    Notification::make()
+                    ->title('Payment rejected')
+                    ->body('Transaction was rejected')
+                    ->danger()
                     ->send();
                 })->requiresConfirmation()->visible(fn ($record) => $record->status === "Pending"),
                 Tables\Actions\Action::make('add_result')
