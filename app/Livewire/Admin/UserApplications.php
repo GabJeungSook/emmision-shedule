@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Admin;
 
+use App\Mail\ApplicationStatus;
 use App\Models\Application;
 use Filament\Tables;
 use Livewire\Component;
@@ -17,7 +18,7 @@ use Illuminate\Database\Eloquent\Model;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Notifications\Notification;
-
+use Illuminate\Support\Facades\Mail;
 
 class UserApplications extends Component implements HasForms, HasTable
 {
@@ -55,7 +56,13 @@ class UserApplications extends Component implements HasForms, HasTable
                 ->icon('heroicon-s-check-circle')
                 ->button()
                 ->color('success')
-                ->action(function ($record) {
+                ->action(function (Model $record) {
+                    Mail::to($record->user->userDetails->email)->send(new ApplicationStatus($record));
+                    Notification::make()
+                    ->title('Application approved')
+                    ->success()
+                    ->body('Application can now proceed to payment transaction. An email was sent to the customer.')
+                    ->send();
                     $record->status = "For Payment";
                     $record->save();
 
