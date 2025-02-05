@@ -17,6 +17,8 @@ use Filament\Forms\Components\Radio;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Hidden;
 use Illuminate\Support\Facades\Auth;
+use Filament\Forms\Components\Placeholder;
+use Illuminate\Support\HtmlString;
 use Filament\Forms\Set;
 use DB;
 
@@ -52,10 +54,20 @@ class CreatePayment extends Component implements HasForms
                 })->required(),
                 TextInput::make('amount')->readOnly()->required(),
                 Radio::make('payment_method')
+                ->live()
                 ->options([
                     'gcash' => 'GCash',
                     'maya' => 'Maya',
                 ])->default('gcash')->inline()->required(),
+                Placeholder::make('payment_image')
+                ->content(function($get) {
+                    if ($get('payment_method') == 'maya') {
+                        return new HtmlString('<img src="'.asset('images/maya.jpg').'" class="max-w-xs m-auto" />');
+                    }else{
+                        return new HtmlString('<img src="'.asset('images/gcash.jpg').'" class="max-w-xs m-auto" />');
+                    }
+                    // return new HtmlString('<img src="'.asset('images/gcash.jpg').'" class="max-w-xs m-auto" />');
+                })->label(''),
                 FileUpload::make('attachment')
                 ->label('Receipt')
                 ->preserveFileNames()
