@@ -5,7 +5,7 @@
         </div>
         @if($record->getMedia())
         @foreach ($record->getMedia() as $attachment)
-        <img src="{{ asset($attachment->getUrl()) }}" alt="">
+        <img class="mt-3" src="{{ asset($attachment->getUrl()) }}" alt="">
         @endforeach
         {{-- <img src="{{ asset('storage/' . $record->media->first()->getImage()) }}" alt="">
         <small class="mt-3 text-center uppercase font-bold text-md">{{$record->payment_method}}</small>
