@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin;
 
 use App\Models\Schedule;
+use Carbon\Carbon;
 use Livewire\Component;
 
 class Calendar extends Component
@@ -11,7 +12,8 @@ class Calendar extends Component
 
     public function mount()
     {
-        $this->schedules = Schedule::all();
+        $date_now = Carbon::parse(now())->format('Y-m-d');
+        $this->schedules = Schedule::where('date', '>=', $date_now)->get();
     }
 
     public function render()

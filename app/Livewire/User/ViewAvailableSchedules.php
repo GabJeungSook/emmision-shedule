@@ -5,6 +5,7 @@ namespace App\Livewire\User;
 use Livewire\Component;
 use App\Models\Schedule;
 use App\Models\UserPayment;
+use Carbon\Carbon;
 
 class ViewAvailableSchedules extends Component
 {
@@ -13,7 +14,8 @@ class ViewAvailableSchedules extends Component
 
     public function mount()
     {
-        $this->schedules = Schedule::all();
+        $date_now = Carbon::parse(now())->format('Y-m-d');
+        $this->schedules = Schedule::where('date', '>=', $date_now)->get();
         $this->transactions = UserPayment::get();
     }
 

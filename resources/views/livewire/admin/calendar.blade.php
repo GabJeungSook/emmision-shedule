@@ -46,6 +46,15 @@ document.addEventListener('DOMContentLoaded', function() {
             dateClick: function(info) {
                 var day = info.date.getDay();
                 var hasEvent = @json($events).some(event => event.start === info.dateStr);
+                var today = new Date();
+                today.setHours(0, 0, 0, 0); // Set time to midnight to compare only dates
+                var clickedDate = new Date(info.dateStr);
+
+                if (clickedDate < today) {
+                    alert('Cannot select a past date.');
+                    return;
+                }
+
                 if (day !== 0 && day !== 6 && !hasEvent) { // 0 is Sunday, 6 is Saturday, and no event on the date
                     //redirect to route
                     window.location.href = '{{ route('admin.create-schedule') }}?date=' + info.dateStr;
