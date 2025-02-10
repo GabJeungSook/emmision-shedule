@@ -19,6 +19,7 @@ use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Form;
 use Filament\Forms\Set;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 
 class CreateTransaction extends Component implements HasForms
 {
@@ -51,15 +52,18 @@ class CreateTransaction extends Component implements HasForms
                 Hidden::make('hour'),
                 Hidden::make('transaction_number')->default('TRN' . rand(1000, 9999) . $this->user->id . date('Ymd')),
                 Hidden::make('status')->default('Pending'),
-                FileUpload::make('attachment')
-                ->preserveFileNames()
-                ->disk('public')
-                ->directory('or_cr')
-                ->label('Upload OR/CR')
-                ->uploadingMessage('Uploading OR/CR...')
+                SpatieMediaLibraryFileUpload::make('attachment')
                 ->multiple()
-                ->image()
-                ->required()
+                ->reorderable()
+                // FileUpload::make('attachment')
+                // ->preserveFileNames()
+                // ->disk('public')
+                // ->directory('or_cr')
+                // ->label('Upload OR/CR')
+                // ->uploadingMessage('Uploading OR/CR...')
+                // ->multiple()
+                // ->image()
+                // ->required()
             ])->statePath('data')
             ->model(Application::class);
     }
@@ -68,13 +72,8 @@ class CreateTransaction extends Component implements HasForms
     {
         if($this->selected_hour)
         {
-            foreach($this->data['attachment'] as $attachment)
-            {
-                $this->data['attachment'] = json_encode($attachment);
-                dd($this->data['attachment']);
-            }
-
-            Application::create($this->form->getState());
+            $application = Application::create($this->form->getState());
+            $this->form->model($application)->saveRelationships();
 
             Notification::make()
             ->title('Payment saved successfully')
