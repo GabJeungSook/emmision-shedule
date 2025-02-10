@@ -72,7 +72,7 @@ class CreateTransaction extends Component implements HasForms
     {
         if($this->selected_hour)
         {
-            if($this->record->applications()->where('user_id', Auth::user()->id)->where('hour', $this->selected_hour)->count() > 0)
+            if($this->record->applications()->where('schedule_id', $this->record->id)->where('user_id', Auth::user()->id)->where('hour', $this->selected_hour)->count() > 0)
             {
                 Notification::make()
                 ->title('Application Failed')
