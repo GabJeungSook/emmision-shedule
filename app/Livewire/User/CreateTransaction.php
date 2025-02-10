@@ -72,16 +72,26 @@ class CreateTransaction extends Component implements HasForms
     {
         if($this->selected_hour)
         {
-            $application = Application::create($this->form->getState());
-            $this->form->model($application)->saveRelationships();
+            if($this->record->applications()->where('user_id', Auth::user()->id)->where('hour', $this->selected_hour)->count() > 0)
+            {
+                Notification::make()
+                ->title('Application Failed')
+                ->body('You already have an application for this schedule.')
+                ->danger()
+                ->send();
+            }else{
+                $application = Application::create($this->form->getState());
+                $this->form->model($application)->saveRelationships();
 
-            Notification::make()
-            ->title('Payment saved successfully')
-            ->body('Please wait for the admin to approve your payment application')
-            ->success()
-            ->send();
+                Notification::make()
+                ->title('Application saved successfully')
+                ->body('Please wait for the admin to approve your application.')
+                ->success()
+                ->send();
 
-            return redirect()->route('user.applications');
+                return redirect()->route('user.applications');
+            }
+
         }else{
 
             Notification::make()
