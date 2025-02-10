@@ -2,12 +2,13 @@
 
 namespace App\Livewire\Admin;
 
-use App\Models\Application;
 use Filament\Tables;
 use Livewire\Component;
 use App\Models\Schedule;
 use Filament\Tables\Table;
+use App\Models\Application;
 use App\Models\Transaction;
+use App\Models\UserPayment;
 use Filament\Actions\StaticAction;
 use Illuminate\Contracts\View\View;
 use Filament\Forms\Contracts\HasForms;
@@ -23,10 +24,12 @@ class ViewSchedule extends Component implements HasForms, HasTable
     use InteractsWithForms;
 
     public $record;
+    public $transactions;
 
     public function mount($record)
     {
         $this->record = Schedule::find($record);
+        $this->transactions = UserPayment::get();
     }
 
     public function table(Table $table): Table
