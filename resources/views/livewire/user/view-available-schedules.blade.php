@@ -17,7 +17,32 @@
             <li class="overflow-hidden bg-white px-4 py-4 shadow-lg sm:rounded-md sm:px-6 hover:bg-gray-300 rounded-md">
                 <a href="{{ route('user.create-transaction', ['record' => $schedule->id]) }}">
                     <span class="font-semibold text-lg">{{ Carbon\Carbon::parse($schedule->date)->format('F d, Y') }}</span>
-                    <p>Slots Remaining: {{ ($schedule->slots * count(json_decode($schedule->hours))) - $slot_taken }}</p>
+                    <p>
+                        @foreach (json_decode($schedule->hours) as $hour)
+                        @php
+                        $hour_display = match($hour) {
+                            1 => '8-9am',
+                            2 => '9-10am',
+                            3 => '10-11am',
+                            4 => '11am-12pm',
+                            5 => '12-1pm',
+                            6 => '1-2pm',
+                            7 => '2-3pm',
+                            8 => '3-4pm',
+                            9 => '4-5pm',
+                            default => 'Invalid hour',
+                        };
+
+                        $hour_slot_taken = $transactions
+                        ->where('application.schedule_id', $schedule->id)
+                        ->where('application.hour', $hour)
+                        ->where('status', 'Approved')
+                        ->count();
+                        @endphp
+                        {{ $hour_display }} = {{ $schedule->slots - $hour_slot_taken }}  @if (!$loop->last) | @endif
+                        @endforeach
+                    </p>
+                    <p>Total Slots Remaining: {{ ($schedule->slots * count(json_decode($schedule->hours))) - $slot_taken }}</p>
                 </a>
             </li>
             @empty

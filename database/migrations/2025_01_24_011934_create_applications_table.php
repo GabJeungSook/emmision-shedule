@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('transaction_number')->nullable();
             $table->integer('hour');
             $table->string('status')->default('Pending');
-            $table->text('attachment')->nullable();
+            $table->json('attachment')->nullable();
             $table->timestamps();
         });
     }

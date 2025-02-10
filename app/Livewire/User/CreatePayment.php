@@ -62,9 +62,11 @@ class CreatePayment extends Component implements HasForms
                 Placeholder::make('payment_image')
                 ->content(function($get) {
                     if ($get('payment_method') == 'maya') {
-                        return new HtmlString('<img src="'.asset('images/maya.jpg').'" class="max-w-xs m-auto" />');
+                        return new HtmlString('<img src="'.asset('images/maya.jpg').'" class="max-w-xs m-auto" />
+                        <button wire:click="downloadImage(1)" style="background-color: #eda909; padding: 10px; margin-top: 10px; color: white; border-radius: 5px; display: block; margin-left: auto; margin-right: auto;">Download</button>');
                     }else{
-                        return new HtmlString('<img src="'.asset('images/gcash.jpg').'" class="max-w-xs m-auto" />');
+                        return new HtmlString('<img src="'.asset('images/gcash.jpg').'" class="max-w-xs m-auto" />
+                        <button wire:click="downloadImage(2)" style="background-color: #eda909; padding: 10px; margin-top: 10px; color: white; border-radius: 5px; display: block; margin-left: auto; margin-right: auto;">Download</button>');
                     }
                     // return new HtmlString('<img src="'.asset('images/gcash.jpg').'" class="max-w-xs m-auto" />');
                 })->label(''),
@@ -78,6 +80,21 @@ class CreatePayment extends Component implements HasForms
                 ->image()
             ])->statePath('data')
             ->model(UserPayment::class);;
+    }
+
+    public function downloadImage($id)
+    {
+        switch($id)
+        {
+            case 1:
+                $file = public_path('images/maya.jpg');
+                break;
+            case 2:
+                $file = public_path('images/gcash.jpg');
+                break;
+        }
+
+        return response()->download($file);
     }
 
     public function savePayment()

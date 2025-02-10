@@ -52,12 +52,12 @@ class CreateTransaction extends Component implements HasForms
                 Hidden::make('transaction_number')->default('TRN' . rand(1000, 9999) . $this->user->id . date('Ymd')),
                 Hidden::make('status')->default('Pending'),
                 FileUpload::make('attachment')
-                ->label('Receipt')
                 ->preserveFileNames()
                 ->disk('public')
                 ->directory('or_cr')
                 ->label('Upload OR/CR')
                 ->uploadingMessage('Uploading OR/CR...')
+                ->multiple()
                 ->image()
                 ->required()
             ])->statePath('data')
@@ -68,6 +68,12 @@ class CreateTransaction extends Component implements HasForms
     {
         if($this->selected_hour)
         {
+            foreach($this->data['attachment'] as $attachment)
+            {
+                $this->data['attachment'] = json_encode($attachment);
+                dd($this->data['attachment']);
+            }
+
             Application::create($this->form->getState());
 
             Notification::make()
