@@ -108,9 +108,6 @@ class CreateTransaction extends Component implements HasForms
         // ->title('Transaction saved successfully')
         // ->success()
         // ->send();
-
-
-
     }
 
     public function render()
