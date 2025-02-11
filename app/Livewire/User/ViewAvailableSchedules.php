@@ -14,7 +14,7 @@ class ViewAvailableSchedules extends Component
 
     public function mount()
     {
-        $date_now = Carbon::parse(now())->format('Y-m-d');
+        $date_now = Carbon::now('Asia/Manila')->format('Y-m-d');
         $this->schedules = Schedule::where('date', '>=', $date_now)->get();
         $this->transactions = UserPayment::get();
     }
