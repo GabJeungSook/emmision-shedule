@@ -15,6 +15,7 @@ use Filament\Forms\Contracts\HasForms;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Contracts\HasTable;
 use Illuminate\Database\Eloquent\Model;
+use Filament\Notifications\Notification;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Tables\Concerns\InteractsWithTable;
 
@@ -61,6 +62,19 @@ class ViewSchedule extends Component implements HasForms, HasTable
             ->bulkActions([
                 // ...
             ]);
+    }
+
+    public function cancelSchedule()
+    {
+        $this->record->delete();
+
+        Notification::make()
+        ->title('Success')
+        ->success()
+        ->body('Schedule has been cancelled.')
+        ->send();
+
+        return redirect()->route('admin.calendar');
     }
 
     public function render()

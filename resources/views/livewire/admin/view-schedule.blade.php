@@ -2,6 +2,19 @@
     <div class="mt-10 text-4xl font-bold mb-4">
         Schedule Details
     </div>
+    @if ($record->applications->count() <= 0)
+    <div class="flex justify-end mr-5">
+        <button wire:confirm="Are you sure you want to cancel this schedule?" wire:click="cancelSchedule" class="rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-gray-50 shadow-sm hover:bg-red-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600">
+          <div class="flex space-x-1">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+          </svg>
+          <span class="mt-1">Cancel Schedule</span>
+          </div>
+      </button>
+</div>
+    @endif
+
     <div class="p-4 mt-5">
         <div>
             <div class="px-4 sm:px-0">
