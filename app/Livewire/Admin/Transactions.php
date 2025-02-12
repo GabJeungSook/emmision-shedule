@@ -14,9 +14,10 @@ use Filament\Forms\Contracts\HasForms;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Contracts\HasTable;
 use Illuminate\Database\Eloquent\Model;
+use Filament\Notifications\Notification;
+use App\Services\TeamSSProgramSmsService;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Tables\Concerns\InteractsWithTable;
-use Filament\Notifications\Notification;
 
 class Transactions extends Component implements HasForms, HasTable
 {
@@ -72,11 +73,45 @@ class Transactions extends Component implements HasForms, HasTable
                     $record->status = "Approved";
                     $record->save();
 
-                    Notification::make()
-                    ->title('Payment approved')
-                    ->body('Transaction can now proceed to emission')
-                    ->success()
-                    ->send();
+                    $smsService = new TeamSSProgramSmsService();
+                    $number = $this->payment->user->userDetails->phone;
+                    $message = 'EMISSION TEST PAYMENT\n
+                    Your payment for the emission test has been approved.\n
+                    Transaction number: ' . $record->transaction_number.' \n
+                    Amount: ' . $record->amount.' \n
+                    Payment Method: ' . $record->payment_method;
+
+                    $response = $smsService->sendSms($number, $message);
+
+                    if (!$number) {
+                        Notification::make()
+                            ->title('SMS Failed')
+                            ->danger()
+                            ->body('The phone number is missing or invalid.')
+                            ->send();
+
+                        return;
+                    }
+
+                    if (isset($response['error']) && $response['error']) {
+                        Notification::make()
+                            ->title('SMS Failed')
+                            ->danger()
+                            ->body('Failed to send SMS: ' . $response['message'])
+                            ->send();
+                    } else {
+                        Notification::make()
+                        ->title('Payment approved')
+                        ->body('SMS sent to ' . $number)
+                        ->success()
+                        ->send();
+                    }
+
+                    // Notification::make()
+                    // ->title('Payment approved')
+                    // ->body('Transaction can now proceed to emission')
+                    // ->success()
+                    // ->send();
                 })->requiresConfirmation()->visible(fn ($record) => $record->status === "Pending"),
                 Tables\Actions\Action::make('Reject Payment')
                 ->icon('heroicon-s-x-circle')
@@ -86,11 +121,45 @@ class Transactions extends Component implements HasForms, HasTable
                     $record->status = "Rejected";
                     $record->save();
 
-                    Notification::make()
-                    ->title('Payment rejected')
-                    ->body('Transaction was rejected')
-                    ->danger()
-                    ->send();
+                    $smsService = new TeamSSProgramSmsService();
+                    $number = $this->payment->user->userDetails->phone;
+                    $message = 'EMISSION TEST PAYMENT\n
+                    Your payment for the emission test has been rejected.\n
+                    Transaction number: ' . $record->transaction_number.' \n
+                    Amount: ' . $record->amount.' \n
+                    Payment Method: ' . $record->payment_method;
+
+                    $response = $smsService->sendSms($number, $message);
+
+                    if (!$number) {
+                        Notification::make()
+                            ->title('SMS Failed')
+                            ->danger()
+                            ->body('The phone number is missing or invalid.')
+                            ->send();
+
+                        return;
+                    }
+
+                    if (isset($response['error']) && $response['error']) {
+                        Notification::make()
+                            ->title('SMS Failed')
+                            ->danger()
+                            ->body('Failed to send SMS: ' . $response['message'])
+                            ->send();
+                    } else {
+                        Notification::make()
+                        ->title('Payment rejected')
+                        ->body('SMS sent to ' . $number)
+                        ->success()
+                        ->send();
+                    }
+
+                    // Notification::make()
+                    // ->title('Payment rejected')
+                    // ->body('Transaction was rejected')
+                    // ->danger()
+                    // ->send();
                 })->requiresConfirmation()->visible(fn ($record) => $record->status === "Pending"),
                 Tables\Actions\Action::make('add_result')
                 ->label("Add Result")

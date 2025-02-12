@@ -106,41 +106,10 @@ class CreatePayment extends Component implements HasForms
         $this->record->status = 'Paid';
         $this->record->save();
 
-        $smsService = new TeamSSProgramSmsService();
-        $number = $this->payment->user->userDetails->phone;
-        $message = 'EMISSION TEST PAYMENT\n
-        Your payment for the emission test has been successfully received.\n
-        Transaction number: ' . $payment->transaction_number.' \n
-        Amount: ' . $payment->amount.' \n
-        Payment Method: ' . $payment->payment_method;
-
-        $response = $smsService->sendSms($number, $message);
-
-        if (!$number) {
-            Notification::make()
-                ->title('SMS Failed')
-                ->danger()
-                ->body('The phone number is missing or invalid.')
-                ->send();
-
-            return;
-        }
-
-        if (isset($response['error']) && $response['error']) {
-            Notification::make()
-                ->title('SMS Failed')
-                ->danger()
-                ->body('Failed to send SMS: ' . $response['message'])
-                ->send();
-        } else {
-            Notification::make()
-            ->title('Payment saved successfully')
-            ->body('SMS sent to ' . $number)
-            ->success()
-            ->send();
-        }
-
-
+        Notification::make()
+        ->title('Payment saved successfully')
+        ->success()
+        ->send();
 
         return redirect()->route('user.transaction-details', $this->record->id);
     }
