@@ -80,7 +80,7 @@ class CreatePayment extends Component implements HasForms
                 ->uploadingMessage('Uploading receipt...')
                 ->image()
             ])->statePath('data')
-            ->model(UserPayment::class);;
+            ->model(UserPayment::class);
     }
 
     public function downloadImage($id)
@@ -115,6 +115,16 @@ class CreatePayment extends Component implements HasForms
         Payment Method: ' . $payment->payment_method;
 
         $response = $smsService->sendSms($number, $message);
+
+        if (!$number) {
+            Notification::make()
+                ->title('SMS Failed')
+                ->danger()
+                ->body('The phone number is missing or invalid.')
+                ->send();
+
+            return;
+        }
 
         if (isset($response['error']) && $response['error']) {
             Notification::make()
