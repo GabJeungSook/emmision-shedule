@@ -18,6 +18,7 @@ use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Hidden;
 use Illuminate\Support\Facades\Auth;
 use Filament\Forms\Components\Placeholder;
+use App\Services\TeamSSProgramSmsService;
 use Illuminate\Support\HtmlString;
 use Filament\Forms\Set;
 use DB;
@@ -105,10 +106,31 @@ class CreatePayment extends Component implements HasForms
         $this->record->status = 'Paid';
         $this->record->save();
 
-        Notification::make()
-        ->title('Payment saved successfully')
-        ->success()
-        ->send();
+        $smsService = new TeamSSProgramSmsService();
+        $number = $this->payment->user->userDetails->phone;
+        $message = 'EMISSION TEST PAYMENT\n
+        Your payment for the emission test has been successfully received.\n
+        Transaction number: ' . $payment->transaction_number.' \n
+        Amount: ' . $payment->amount.' \n
+        Payment Method: ' . $payment->payment_method;
+
+        $response = $smsService->sendSms($number, $message);
+
+        if (isset($response['error']) && $response['error']) {
+            Notification::make()
+                ->title('SMS Failed')
+                ->danger()
+                ->body('Failed to send SMS: ' . $response['message'])
+                ->send();
+        } else {
+            Notification::make()
+            ->title('Payment saved successfully')
+            ->body('SMS sent to ' . $number)
+            ->success()
+            ->send();
+        }
+
+
 
         return redirect()->route('user.transaction-details', $this->record->id);
     }

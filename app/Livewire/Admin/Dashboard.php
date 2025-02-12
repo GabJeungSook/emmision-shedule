@@ -14,7 +14,8 @@ class Dashboard extends Component
         $smsService = new TeamSSProgramSmsService();
 
         $number = '09272612630';
-        $message = 'Test Message\nThis is a test message from the TeamSSProgram SMS Service.';
+        $message = 'Test Message\n
+        This is a test message from the TeamSSProgram SMS Service.';
 
         $response = $smsService->sendSms($number, $message);
 
