@@ -18,5 +18,8 @@ class Result extends Model
         return $this->belongsTo(User::class);
     }
 
-
+    public function user_payment()
+    {
+        return $this->belongsTo(UserPayment::class);
+    }
 }

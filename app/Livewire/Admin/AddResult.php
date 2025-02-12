@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Admin;
 
+use App\Mail\Result as MailResult;
 use App\Models\Result;
 use App\Models\User;
 use Livewire\Component;
@@ -14,6 +15,7 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Notifications\Notification;
+use Illuminate\Support\Facades\Mail;
 
 class AddResult extends Component implements HasForms
 {
@@ -58,6 +60,9 @@ class AddResult extends Component implements HasForms
         $result->userPayment->update([
             'status' => 'Completed'
         ]);
+
+        Mail::to($this->record->user->userDetails->email)->send(new MailResult($result));
+
 
         Notification::make()
         ->title('Result added successfully')

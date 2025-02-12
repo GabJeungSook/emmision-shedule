@@ -27,12 +27,10 @@
 <body>
     <div>
         <h1>Good Day Mr./Mrs: {{strtoupper($record->user->userDetails->last_name) }},</h1>
-        <p>Your application status is now <span style="font-weight: bold; text-decoration: underline">{{$record->status}}</span></p>
-        <p>Date: <span style="font-weight: bold;">{{Carbon\Carbon::parse($record->created_at)->format('F d, Y')}}</span></p>
-        <p>Time: <span style="font-weight: bold;">{{Carbon\Carbon::parse($record->created_at)->format('h:i A')}}</span></p>
-        <p>Transaction Number: <span style="font-weight: bold;">{{strtoupper($record->transaction_number)}}</span></p>
-        {{-- <p>Invoice Number: <span style="font-weight: bold;">{{$record->invoice->invoice_number}}</span></p> --}}
-        {{-- <p>Here is a copy of your invoice.</p> --}}
+        <p>Your result has been posted</span></p>
+        <p>Date Posted: <span style="font-weight: bold;">{{Carbon\Carbon::parse($record->created_at)->format('F d, Y')}}</span></p>
+        <p>Time Posted: <span style="font-weight: bold;">{{Carbon\Carbon::parse($record->created_at)->format('h:i A')}}</span></p>
+        <p>Transaction Number: <span style="font-weight: bold;">{{strtoupper($record->user_payment->transaction_number)}}</span></p>
         <p>Thank You.</p>
     </div>
 
