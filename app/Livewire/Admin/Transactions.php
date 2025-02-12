@@ -74,7 +74,7 @@ class Transactions extends Component implements HasForms, HasTable
                     $record->save();
 
                     $smsService = new TeamSSProgramSmsService();
-                    $number = $this->payment->user->userDetails->phone;
+                    $number = $record->user->userDetails->phone;
                     $message = 'EMISSION TEST PAYMENT\n
                     Your payment for the emission test has been approved.\n
                     Transaction number: ' . $record->transaction_number.' \n
@@ -122,7 +122,7 @@ class Transactions extends Component implements HasForms, HasTable
                     $record->save();
 
                     $smsService = new TeamSSProgramSmsService();
-                    $number = $this->payment->user->userDetails->phone;
+                    $number = $record->user->userDetails->phone;
                     $message = 'EMISSION TEST PAYMENT\n
                     Your payment for the emission test has been rejected.\n
                     Transaction number: ' . $record->transaction_number.' \n
