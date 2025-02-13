@@ -22,6 +22,7 @@ use App\Livewire\Admin\TransactionReport;
 use App\Livewire\Admin\UserApplications;
 use App\Livewire\Admin\ScanQrCode;
 use App\Http\Controllers\ProfileController;
+use App\Livewire\Admin\AllReports;
 use App\Livewire\Admin\ResultReport;
 use App\Livewire\Admin\Results;
 use App\Livewire\User\ViewApplication;
@@ -63,6 +64,7 @@ Route::get('/admin/add-result/{record}', AddResult::class)->middleware(['auth', 
 Route::get('/admin/scan-qr', ScanQrCode::class)->middleware(['auth', 'verified'])->name('admin.scan-qr');
 Route::get('/admin/results', Results::class)->middleware(['auth', 'verified'])->name('admin.results');
 Route::get('/admin/result-report/{record}', ResultReport::class)->middleware(['auth', 'verified'])->name('admin.result-report');
+Route::get('/admin/all-result-report', AllReports::class)->middleware(['auth', 'verified'])->name('admin.all-result-report');
 
 Route::get('/user/dashboard', UserDashboard::class)->middleware(['auth', 'verified'])->name('user.dashboard');
 Route::get('/user/view-transaction', ViewTransaction::class)->middleware(['auth', 'verified'])->name('user.view-transaction');
