@@ -12,8 +12,8 @@
         <thead>
             <tr>
                 <th class="py-2 px-4 border-b border-gray-200 bg-gray-100 text-left">Full Name</th>
-                <th class="py-2 px-4 border-b border-gray-200 bg-gray-100 text-left">Gender</th>
                 <th class="py-2 px-4 border-b border-gray-200 bg-gray-100 text-left">Address</th>
+                <th class="py-2 px-4 border-b border-gray-200 bg-gray-100 text-left">Gender</th>
                 <th class="py-2 px-4 border-b border-gray-200 bg-gray-100 text-left">Phone</th>
                 <th class="py-2 px-4 border-b border-gray-200 bg-gray-100 text-left">Email</th>
             </tr>

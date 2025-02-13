@@ -38,6 +38,12 @@ class Results extends Component implements HasForms, HasTable
                 ->button()
                 ->color('success')
                 ->url(fn (Result $record): string => route('user.transaction-result', $record->userPayment->id)),
+                Actions\Action::make('print_result')
+                ->label("Print Result")
+                ->icon('heroicon-s-printer')
+                ->button()
+                ->color('success')
+                ->url(fn (Result $record): string => route('admin.result-report', $record->id)),
             ])
             ->bulkActions([
                 // ...
