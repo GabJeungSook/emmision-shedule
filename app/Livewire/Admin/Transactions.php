@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Admin;
 
+use Carbon\Carbon;
 use Filament\Tables;
 use Livewire\Component;
 use Filament\Tables\Table;
@@ -75,7 +76,7 @@ class Transactions extends Component implements HasForms, HasTable
 
                     $smsService = new TeamSSProgramSmsService();
                     $number = $record->user->userDetails->phone;
-                    $message = 'EMISSION TEST PAYMENT\nYour payment for the emission test has been approved.\nTransaction number: ' . $record->transaction_number.' \nAmount: ' . $record->amount.' \nPayment Method: ' . $record->payment_method;
+                    $message = 'EMISSION TEST PAYMENT\nYour payment for the emission test has been approved.\nTransaction number: ' . $record->transaction_number.'\nSchedule: ' .Carbon::parse($record->application->schedule->date)->format('F d, Y').' - ('.$record->application->convertHour.')'.' \nAmount: ' . $record->amount.' \nPayment Method: ' . $record->payment_method;
 
                     $response = $smsService->sendSms($number, $message);
 
@@ -119,7 +120,7 @@ class Transactions extends Component implements HasForms, HasTable
 
                     $smsService = new TeamSSProgramSmsService();
                     $number = $record->user->userDetails->phone;
-                    $message = 'EMISSION TEST PAYMENT\nYour payment for the emission test has been rejected.\nTransaction number: ' . $record->transaction_number.' \nAmount: ' . $record->amount.' \nPayment Method: ' . $record->payment_method;
+                    $message = 'EMISSION TEST PAYMENT\nYour payment for the emission test has been rejected.\nTransaction number: ' . $record->transaction_number.'\nSchedule: ' .Carbon::parse($record->application->schedule->date)->format('F d, Y').' - ('.$record->application->convertHour.')'.' \nAmount: ' . $record->amount.' \nPayment Method: ' . $record->payment_method;
 
                     $response = $smsService->sendSms($number, $message);
 
