@@ -55,13 +55,13 @@ class AddResult extends Component implements HasForms
 
     public function confirmTransactionResult()
     {
-        $result = Result::create($this->form->getState());
+        $record = Result::create($this->form->getState());
 
-        $result->userPayment->update([
+        $record->userPayment->update([
             'status' => 'Completed'
         ]);
 
-        Mail::to($this->record->user->userDetails->email)->send(new MailResult($result));
+        Mail::to($this->record->user->userDetails->email)->send(new MailResult($record));
 
 
         Notification::make()
@@ -69,7 +69,7 @@ class AddResult extends Component implements HasForms
         ->success()
         ->send();
 
-        return redirect()->route('admin.results', $result);
+       // return redirect()->route('admin.results', $result);
     }
 
     public function render()

@@ -35,17 +35,17 @@
     </div>
 
 <div>
-    <p id="statement_title">Result</p>
+    {{-- <p id="statement_title">Result</p> --}}
 </div>
 <table class="simple-table">
   <thead>
     <tr>
-      <th></th>
+      <th>Result</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-        <td class="border border-gray-500 px-4 py-2 text-center">{!! str($record->result->result)->sanitizeHtml() !!}</td>
+        <td class="border border-gray-500 px-4 py-2 text-center">{!! str($record->result)->sanitizeHtml() !!}</td>
     </tr>
   </tbody>
 </table>
