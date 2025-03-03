@@ -45,7 +45,7 @@ class CreatePayment extends Component implements HasForms
                 Hidden::make('user_id')->default($this->user->id),
                 Hidden::make('application_id')->default($this->record->id),
                 Hidden::make('transaction_number')->default('TRN' . rand(1000, 9999) . $this->user->id . date('Ymd')),
-                Hidden::make('status')->default('Pending'),
+                Hidden::make('status')->default('Paid'),
                 Select::make('vehicle_id')
                 ->label('Vehicle')
                 ->options(Vehicle::all()->pluck('name', 'id'))
@@ -103,7 +103,7 @@ class CreatePayment extends Component implements HasForms
         $this->validate();
 
         $payment = UserPayment::create($this->form->getState());
-        $this->record->status = 'Paid';
+        $this->record->status = 'Approved';
         $this->record->save();
 
         Notification::make()
