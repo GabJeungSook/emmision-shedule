@@ -4,7 +4,7 @@
     </div>
     <div>
         @php
-            $transactions = App\Models\Transaction::all();
+            $transactions = App\Models\UserPayment::all();
             $users = App\Models\User::all();
             $schedules = App\Models\Schedule::all();
         @endphp
