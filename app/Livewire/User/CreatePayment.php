@@ -111,8 +111,9 @@ class CreatePayment extends Component implements HasForms
         ->title('Payment saved successfully')
         ->success()
         ->send();
-
-        return redirect()->route('user.transaction-details', $this->record->id);
+        
+        return redirect()->route('user.view-transaction');
+        // return redirect()->route('user.transaction-details', $this->record);
     }
 
     public function render()
