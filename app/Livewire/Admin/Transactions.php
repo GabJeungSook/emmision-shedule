@@ -36,7 +36,7 @@ class Transactions extends Component implements HasForms, HasTable
                 TextColumn::make('application.convertHour')->label('Time'),
                 TextColumn::make('payment_method')->label('Payment Method')->formatStateUsing(fn (?string $state) => strtoupper($state)),
                 TextColumn::make('vehicle.name')->label('Vehicle'),
-                TextColumn::make('vehicle.amount')->label('Amount')->formatStateUsing(fn (?string $state) => '₱ '.number_format($state, 2)),
+                TextColumn::make('amount')->label('Amount')->formatStateUsing(fn (?string $state) => '₱ '.number_format($state, 2)),
                 TextColumn::make('status')->label('Status'),
             ])
             ->filters([

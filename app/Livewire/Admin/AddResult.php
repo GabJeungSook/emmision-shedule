@@ -69,7 +69,7 @@ class AddResult extends Component implements HasForms
         ->success()
         ->send();
 
-       // return redirect()->route('admin.results', $result);
+       return redirect()->route('admin.results');
     }
 
     public function render()
