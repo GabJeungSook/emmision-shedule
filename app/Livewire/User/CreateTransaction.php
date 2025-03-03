@@ -53,6 +53,7 @@ class CreateTransaction extends Component implements HasForms
                 Hidden::make('transaction_number')->default('TRN' . rand(1000, 9999) . $this->user->id . date('Ymd')),
                 Hidden::make('status')->default('Pending'),
                 SpatieMediaLibraryFileUpload::make('attachment')
+                ->required()
                 ->multiple()
                 ->reorderable()
                 // FileUpload::make('attachment')

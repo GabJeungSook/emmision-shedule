@@ -79,6 +79,7 @@ class CreatePayment extends Component implements HasForms
                 ->label('Upload Receipt Image')
                 ->uploadingMessage('Uploading receipt...')
                 ->image()
+                ->required()
             ])->statePath('data')
             ->model(UserPayment::class);
     }
