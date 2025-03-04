@@ -1,11 +1,11 @@
 <div>
-    <div class="flex justify-end m-10">
-        <button onclick="window.print()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+    <div class="flex justify-end m-10 no-print">
+        <button onclick="printContainer()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
             Print
         </button>
     </div>
 
-    <div class="flex justify-end m-10">
+    <div class="flex justify-end m-10 no-print">
         <select wire:model.live="filter" class="bg-white border border-gray-300 text-gray-700 py-2 px-8 rounded">
             <option value="">All</option>
             <option value="daily">Daily</option>
@@ -15,7 +15,7 @@
         </select>
     </div>
 
-    <div class="container mx-auto">
+    <div id="printableContainer" class="container mx-auto">
         <div class="text-center text-3xl font-bold mb-6">Emission Test Center</div>
         <div class="text-center text-xl font-bold mb-6">List of Transactions</div>
         <table class="min-w-full bg-white border border-gray-200">
@@ -45,4 +45,29 @@
             </tbody>
         </table>
     </div>
+    <style>
+        @media print {
+            .no-print {
+                display: none;
+            }
+            .container {
+                margin: 0;
+                padding: 0;
+                width: 100%;
+            }
+        }
+    </style>
 </div>
+<script>
+    function printContainer() {
+        var printContents = document.getElementById('printableContainer').innerHTML;
+        var originalContents = document.body.innerHTML;
+
+        document.body.innerHTML = printContents;
+        window.print();
+        document.body.innerHTML = originalContents;
+        location.reload(); // Refresh the page when print preview is closed
+    }
+</script>
+
+
