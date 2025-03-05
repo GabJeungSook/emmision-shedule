@@ -30,7 +30,7 @@ class UserApplications extends Component implements HasForms, HasTable
         return $table
             ->query(Application::query())
             ->columns([
-                TextColumn::make('transaction_number')->label('Transaction Number'),
+                TextColumn::make('transaction_number')->searchable()->label('Transaction Number'),
                  TextColumn::make('user.userDetails.FullName')->label('Full Name'),
                  TextColumn::make('schedule.date')->label('Schedule Date')->date('F j, Y'),
                  TextColumn::make('convertHour')->label('TIme'),
