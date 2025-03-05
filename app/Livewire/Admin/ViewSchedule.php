@@ -36,7 +36,9 @@ class ViewSchedule extends Component implements HasForms, HasTable
     public function table(Table $table): Table
     {
         return $table
-            ->query(Application::query()->where('schedule_id', $this->record->id))
+            ->query(Application::query()->where('schedule_id', $this->record->id)->whereHas('userPayment', function($query) {
+                $query->where('status', 'Approved');
+            }))
             ->columns([
                 TextColumn::make('transaction_number')->label('Transaction Number'),
                  TextColumn::make('user.userDetails.FullName')->searchable()->label('Full Name'),

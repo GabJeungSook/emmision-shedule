@@ -26,6 +26,11 @@ class Application extends Model implements HasMedia
         $this->addMediaCollection('attachment');
     }
 
+    public function userPayment()
+    {
+        return $this->hasOne(UserPayment::class);
+    }
+
     public function getConvertHourAttribute()
     {
         $startHour = 8;
