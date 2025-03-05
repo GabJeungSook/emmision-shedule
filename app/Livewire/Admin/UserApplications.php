@@ -31,7 +31,7 @@ class UserApplications extends Component implements HasForms, HasTable
             ->query(Application::query())
             ->columns([
                 TextColumn::make('transaction_number')->label('Transaction Number'),
-                 TextColumn::make('user.userDetails.FullName')->searchable()->label('Full Name'),
+                 TextColumn::make('user.userDetails.FullName')->label('Full Name'),
                  TextColumn::make('schedule.date')->label('Schedule Date')->date('F j, Y'),
                  TextColumn::make('convertHour')->label('TIme'),
                  TextColumn::make('status')->label('Status')->formatStateUsing(fn ($record) => strtoupper($record->status)),
