@@ -46,7 +46,7 @@ class Transactions extends Component implements HasForms, HasTable
                 Tables\Actions\Action::make('View Receipt')
                 ->icon('heroicon-s-eye')
                 ->button()
-                ->color('success')
+                ->color('warning')
                 ->modalHeading('Receipt')
                 ->modalSubmitAction(false)
                 ->modalContent(function (Model $record) {
