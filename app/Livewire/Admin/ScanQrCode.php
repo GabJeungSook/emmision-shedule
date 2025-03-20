@@ -19,7 +19,7 @@ class ScanQrCode extends Component
         if($transaction && $transaction->status == 'Approved')
         {
             return redirect()->route('admin.add-result', $transaction->id);
-        }elseif($transaction->status != 'Approved')
+        }elseif($transaction && $transaction->status != 'Approved')
         {
             Notification::make()
             ->title('Trasaction Not Approved')
