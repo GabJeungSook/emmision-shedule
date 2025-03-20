@@ -12,7 +12,7 @@
                 @endphp
               <dl class="divide-y divide-gray-100">
                 <div class="bg-gray-50 px-4 py-1 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
-                  <dt class="text-sm/6 font-medium text-gray-900">Transaction Number</dt>
+                  <dt class="text-sm/6 font-medium text-gray-900">Reference Number</dt>
                   <dd class="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0">{{$record->transaction_number}}</dd>
                 </div>
                 <div class="bg-white px-4 py-1 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">

@@ -13,6 +13,11 @@ class UserDetail extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function vehicle()
+    {
+        return $this->belongsTo(Vehicle::class);
+    }
+
     public function getFullNameAttribute()
     {
         return "{$this->first_name} {$this->last_name}";

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Vehicle;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -19,7 +20,10 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        return view('auth.register');
+        $vehicles = Vehicle::all();
+        return view('auth.register', [
+            'vehicles' => $vehicles,
+        ]);
     }
 
     /**
@@ -41,6 +45,7 @@ class RegisteredUserController extends Controller
         ]);
 
         $user->userDetails()->create([
+            'vehicle_id' => $request->vehicle_id,
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'address' => $request->address,

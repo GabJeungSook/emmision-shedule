@@ -12,4 +12,9 @@ class Vehicle extends Model
     {
         return $this->hasMany(Transaction::class);
     }
+
+    public function userDetail()
+    {
+        return $this->hasOne(UserDetail::class);
+    }
 }

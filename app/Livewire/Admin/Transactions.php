@@ -31,7 +31,7 @@ class Transactions extends Component implements HasForms, HasTable
             ->query(UserPayment::query())
             ->columns([
                 TextColumn::make('user.userDetails.fullName')->searchable()->label('Full Name'),
-                TextColumn::make('transaction_number')->searchable()->label('Transaction Number'),
+                TextColumn::make('transaction_number')->searchable()->label('Reference Number'),
                 TextColumn::make('application.schedule.date')->label('Schedule Date')->date('F j, Y'),
                 TextColumn::make('application.convertHour')->label('Time'),
                 TextColumn::make('payment_method')->label('Payment Method')->formatStateUsing(fn (?string $state) => strtoupper($state)),

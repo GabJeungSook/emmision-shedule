@@ -22,6 +22,13 @@
             <x-text-input id="email" class="block my-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="email" />
             <x-input-label for="plate_number" :value="__('Plate Number')" />
             <x-text-input id="plate_number" class="block my-1 w-full" type="text" name="plate_number" :value="old('plate_number')" required autofocus autocomplete="plate_number" />
+            <x-input-label for="vehicle_id" :value="__('Vehicle Type')" />
+            <select id="vehicle_id" name="vehicle_id" class="block my-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
+                <option value="" disabled selected>-Select One-</option>
+                @foreach ($vehicles as $item)
+                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                @endforeach
+            </select>
             <x-input-label for="username" :value="__('Username')" />
             <x-text-input id="username" class="block mt-1 w-full" type="text" name="username" :value="old('username')" required autofocus autocomplete="username" />
             <x-input-error :messages="$errors->get('username')" class="mt-2" />
