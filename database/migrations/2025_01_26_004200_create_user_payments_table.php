@@ -18,6 +18,8 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained();
             $table->string('transaction_number');
             $table->string('amount');
+            $table->string('paid_amount')->nullable();
+            $table->string('balance')->nullable();
             $table->string('payment_method');
             $table->text('attachment')->nullable();
             $table->string('status');

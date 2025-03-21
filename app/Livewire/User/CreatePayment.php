@@ -2,26 +2,28 @@
 
 namespace App\Livewire\User;
 
-use Livewire\Component;
-use App\Models\Application;
-use App\Models\User;
-use App\Models\UserPayment;
-use App\Models\Vehicle;
-use Filament\Forms\Form;
-use Filament\Forms\Concerns\InteractsWithForms;
-use Filament\Notifications\Notification;
-use Filament\Forms\Contracts\HasForms;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Radio;
-use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Hidden;
-use Illuminate\Support\Facades\Auth;
-use Filament\Forms\Components\Placeholder;
-use App\Services\TeamSSProgramSmsService;
-use Illuminate\Support\HtmlString;
-use Filament\Forms\Set;
 use DB;
+use App\Models\User;
+use App\Models\Vehicle;
+use Filament\Forms\Get;
+use Filament\Forms\Set;
+use Livewire\Component;
+use Filament\Forms\Form;
+use App\Models\Application;
+use App\Models\UserPayment;
+use Illuminate\Support\HtmlString;
+use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\Radio;
+use Illuminate\Support\Facades\Auth;
+use Filament\Forms\Components\Hidden;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Contracts\HasForms;
+use Filament\Forms\Components\TextInput;
+use Filament\Notifications\Notification;
+use App\Services\TeamSSProgramSmsService;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Placeholder;
+use Filament\Forms\Concerns\InteractsWithForms;
 
 class CreatePayment extends Component implements HasForms
 {
@@ -42,6 +44,8 @@ class CreatePayment extends Component implements HasForms
             'status' => 'Pending',
             'vehicle_id' => auth()->user()->userDetails->vehicle_id,
             'amount' => auth()->user()->userDetails->vehicle->amount,
+            'paid_amount' => auth()->user()->userDetails->vehicle->amount,
+            'balance' => 0,
             'payment_method' => 'gcash',
         ]);
     }
@@ -65,7 +69,23 @@ class CreatePayment extends Component implements HasForms
                 ->label('Vehicle')
                 ->formatStateUsing(fn ($record) => $this->user->userDetails->vehicle->name)->readOnly()
                 ->required(),
-                TextInput::make('amount')->readOnly()->required(),
+                Grid::make(3)
+                ->schema([
+                    TextInput::make('amount')->label('Total Amount')->readOnly()->required(),
+                    TextInput::make('paid_amount')
+                    ->numeric()
+                    ->minValue(1)
+                    ->maxValue(fn ($get) => $get('amount'))
+                    ->label('Payment (Enter amount you want to pay)')
+                    ->reactive()
+                    ->afterStateUpdated(function (Set $set, Get $get, ?string $state) {
+                        $balance = $get('amount') - $state;
+                        $set('balance', $balance);
+                    })
+                    ->required(),
+                    TextInput::make('balance')->readOnly()->required(),
+                ]),
+
                 Radio::make('payment_method')
                 ->live()
                 ->options([

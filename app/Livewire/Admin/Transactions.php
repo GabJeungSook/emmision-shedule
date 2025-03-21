@@ -37,6 +37,8 @@ class Transactions extends Component implements HasForms, HasTable
                 TextColumn::make('payment_method')->label('Payment Method')->formatStateUsing(fn (?string $state) => strtoupper($state)),
                 TextColumn::make('vehicle.name')->label('Vehicle'),
                 TextColumn::make('amount')->label('Amount')->formatStateUsing(fn (?string $state) => '₱ '.number_format($state, 2)),
+                TextColumn::make('paid_amount')->label('Paid Amount')->formatStateUsing(fn (?string $state) => '₱ '.number_format($state, 2)),
+                TextColumn::make('balance')->label('Balance')->formatStateUsing(fn (?string $state) => '₱ '.number_format($state, 2)),
                 TextColumn::make('status')->label('Status'),
             ])
             ->filters([
@@ -109,7 +111,7 @@ class Transactions extends Component implements HasForms, HasTable
                     // ->body('Transaction can now proceed to emission')
                     // ->success()
                     // ->send();
-                })->requiresConfirmation()->visible(fn ($record) => $record->status === "Pending"),
+                })->requiresConfirmation()->visible(fn ($record) => $record->status === "Pending" && $record->balance === '0'),
                 Tables\Actions\Action::make('Reject Payment')
                 ->icon('heroicon-s-x-circle')
                 ->button()
@@ -153,7 +155,19 @@ class Transactions extends Component implements HasForms, HasTable
                     // ->body('Transaction was rejected')
                     // ->danger()
                     // ->send();
-                })->requiresConfirmation()->visible(fn ($record) => $record->status === "Pending"),
+                })->requiresConfirmation()->visible(fn ($record) => $record->status === "Pending" && $record->balance === '0'),
+                Tables\Actions\Action::make('mark_as_paid')
+                ->label("Mark as Paid")
+                ->icon('heroicon-s-check')
+                ->button()
+                ->color('success')
+                ->requiresConfirmation()
+                ->action(function ($record) {
+                        $record->paid_amount = $record->amount;
+                        $record->balance = 0;
+                        $record->save();
+                })
+                ->visible(fn ($record) => $record->status === "Pending" && $record->balance > 0),
                 Tables\Actions\Action::make('add_result')
                 ->label("Add Result")
                 ->icon('heroicon-s-plus')

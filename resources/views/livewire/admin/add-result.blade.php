@@ -15,11 +15,11 @@
                   <dt class="text-sm/6 font-medium text-gray-900">User</dt>
                   <dd class="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0">{{$record->user->userDetails->fullName}}</dd>
                 </div>
-               <div class="bg-gray-50 px-4 py-1 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
-                 <dt class="text-sm/6 font-medium text-gray-900">Transaction Number</dt>
+               <div class="bg-white px-4 py-1 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
+                 <dt class="text-sm/6 font-medium text-gray-900">Reference Number</dt>
                  <dd class="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0">{{$record->transaction_number}}</dd>
                </div>
-               <div class="bg-white px-4 py-1 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
+               <div class="bg-gray-50 px-4 py-1 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
                 <dt class="text-sm/6 font-medium text-gray-900">Vehicle</dt>
                 <dd class="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0 uppercase">{{ $record->vehicle->name }}</dd>
               </div>
@@ -27,18 +27,22 @@
                 <dt class="text-sm/6 font-medium text-gray-900">Plate Number</dt>
                 <dd class="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0 uppercase">{{ $record->user->userDetails->plate_number}}</dd>
               </div>
-               <div class="bg-white px-4 py-1 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
+               <div class="bg-gray-50 px-4 py-1 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
                  <dt class="text-sm/6 font-medium text-gray-900">Schedule</dt>
                  <dd class="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0 uppercase">{{ Carbon\Carbon::parse($record->application->schedule->date)->format('F d, Y') }} - ({{$record->application->convertHour}})</dd>
                </div>
-               <div class="bg-gray-50 px-4 py-1 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
+               <div class="bg-white px-4 py-1 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
                  <dt class="text-sm/6 font-medium text-gray-900">Date Created</dt>
                  <dd class="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0">{{ Carbon\Carbon::parse($record->created_at)->format('F d, Y h:i A') }}</dd>
                </div>
-               <div class="bg-white px-4 py-1 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
+               <div class="bg-gray-50 px-4 py-1 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
                  <dt class="text-sm/6 font-medium text-gray-900">Status</dt>
                  <dd class="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0 uppercase">{{$record->status}}</dd>
                </div>
+               <div class="bg-white px-4 py-1 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
+                <dt class="text-sm/6 font-medium text-gray-900">Payment</dt>
+                <dd class="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0">{{ '₱ '.number_format($record->amount, 2) }}</dd>
+              </div>
              </dl>
            </div>
          </div>

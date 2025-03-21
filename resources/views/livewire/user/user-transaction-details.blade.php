@@ -24,6 +24,18 @@
                   <dd class="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0">{{ Carbon\Carbon::parse($record->created_at)->format('F d, Y h:i A') }}</dd>
                 </div>
                 <div class="bg-white px-4 py-1 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
+                    <dt class="text-sm/6 font-medium text-gray-900">Total Amount</dt>
+                    <dd class="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0">{{ '₱ '.number_format($record->amount, 2) }}</dd>
+                  </div>
+                  <div class="bg-gray-50 px-4 py-1 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
+                    <dt class="text-sm/6 font-medium text-gray-900">Paid Amount</dt>
+                    <dd class="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0">{{ '₱ '.number_format($record->paid_amount, 2) }}</dd>
+                  </div>
+                  <div class="bg-white px-4 py-1 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
+                    <dt class="text-sm/6 font-medium text-gray-900">Balance</dt>
+                    <dd class="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0">{{ '₱ '.number_format($record->balance, 2) }}</dd>
+                  </div>
+                <div class="bg-gray-50 px-4 py-1 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
                   <dt class="text-sm/6 font-medium text-gray-900">Status</dt>
                   <dd class="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0 uppercase">{{$record->status}}</dd>
                 </div>
