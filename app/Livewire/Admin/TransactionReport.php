@@ -10,10 +10,23 @@ class TransactionReport extends Component
 {
     public $transactions;
     public $filter;
+    public $start_date;
+    public $end_date;
 
     public function mount()
     {
         $this->transactions = UserPayment::all();
+    }
+
+    //add a function to filter the transactions
+    public function filterTransactions()
+    {
+        if ($this->start_date && $this->end_date) {
+                $this->transactions = UserPayment::whereBetween('created_at', [
+                    now()->setTimezone(config('app.timezone'))->createFromFormat('Y-m-d', $this->start_date)->startOfDay(),
+                    now()->setTimezone(config('app.timezone'))->createFromFormat('Y-m-d', $this->end_date)->endOfDay()
+                ])->get();
+        }
     }
 
     public function updatedFilter()

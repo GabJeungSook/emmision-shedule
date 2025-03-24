@@ -26,7 +26,8 @@ class Results extends Component implements HasForms, HasTable
                 TextColumn::make('user.userDetails.FullName')->searchable()->label('Full Name'),
                 TextColumn::make('created_at')->label('Date Added')->dateTime(),
                 TextColumn::make('userPayment.status')->label('Status'),
-                TextColumn::make('result')->html(),
+                TextColumn::make('passed_or_failed')->label('Result'),
+                TextColumn::make('result')->label('Purpose')->html(),
             ])
             ->filters([
                 // ...

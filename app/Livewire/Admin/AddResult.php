@@ -2,20 +2,24 @@
 
 namespace App\Livewire\Admin;
 
-use App\Mail\Result as MailResult;
-use App\Models\Result;
 use App\Models\User;
+use App\Models\Result;
 use Livewire\Component;
 use Filament\Forms\Form;
 use App\Models\UserPayment;
+use App\Mail\Result as MailResult;
+use Filament\Forms\Components\Grid;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Filament\Forms\Components\Hidden;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
+use Filament\Notifications\Notification;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Concerns\InteractsWithForms;
-use Filament\Notifications\Notification;
-use Illuminate\Support\Facades\Mail;
 
 class AddResult extends Component implements HasForms
 {
@@ -38,19 +42,46 @@ class AddResult extends Component implements HasForms
         ->schema([
             Hidden::make('user_payment_id')->default($this->record->id),
             Hidden::make('user_id')->default($this->user->id),
-            RichEditor::make('result')
-            ->toolbarButtons([
-                'bold',
-                'bulletList',
-                'italic',
-                'orderedList',
-                'redo',
-                'strike',
-                'underline',
-                'undo',
-            ])
-            ->required()
-        ])->statePath('data');
+            Grid::make(2)
+                ->schema([
+                    TextInput::make('co')->label('CO (%)')->numeric()->minValue(0)->maxValue(100),
+                    TextInput::make('hc')->label('HC (%)')->numeric()->minValue(0)->maxValue(100),
+                    TextInput::make('co2')->label('CO2 (%)')->numeric()->minValue(0)->maxValue(100),
+                    TextInput::make('o2')->label('O2 (%)')->numeric()->minValue(0)->maxValue(100),
+                    TextInput::make('lambda'),
+                    TextInput::make('nox')->label('NOx'),
+                ]),
+                FileUpload::make('attachment')
+                ->label('Result Photo')
+                ->preserveFileNames()
+                ->disk('public')
+                ->directory('results')
+                ->label('Upload Result Image')
+                ->uploadingMessage('Uploading Result...')
+                ->image()
+                ->required(),
+                Select::make('passed_or_failed')
+                ->label('Result')
+                ->options([
+                    'Passed' => 'Passed',
+                    'Failed' => 'Failed',
+                ])
+                ->default('Passed')
+                ->required(),
+                RichEditor::make('result')
+                ->label('Purpose')
+                ->toolbarButtons([
+                    'bold',
+                    'bulletList',
+                    'italic',
+                    'orderedList',
+                    'redo',
+                    'strike',
+                    'underline',
+                    'undo',
+                ])
+                ->required()
+            ])->statePath('data');
     }
 
     public function confirmTransactionResult()

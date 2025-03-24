@@ -5,7 +5,7 @@
         </button>
     </div>
 
-    <div class="flex justify-end m-10 no-print">
+    <div class="flex justify-between items-center m-10 no-print">
         <select wire:model.live="filter" class="bg-white border border-gray-300 text-gray-700 py-2 px-8 rounded">
             <option value="">All</option>
             <option value="daily">Daily</option>
@@ -13,6 +13,22 @@
             <option value="monthly">Monthly</option>
             <option value="yearly">Annually</option>
         </select>
+
+        <div class="flex items-center space-x-4">
+            <div>
+            <label for="start_date" class="block text-sm font-medium text-gray-700">From</label>
+            <input type="date" id="start_date" wire:model.live="start_date" class="bg-white border border-gray-300 text-gray-700 py-2 px-4 rounded">
+            </div>
+            <div>
+            <label for="end_date" class="block text-sm font-medium text-gray-700">To</label>
+            <input type="date" id="end_date" wire:model.live="end_date" class="bg-white border border-gray-300 text-gray-700 py-2 px-4 rounded">
+            </div>
+            <div>
+            <button wire:click="filterTransactions" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4">
+                Apply Filter
+            </button>
+            </div>
+        </div>
     </div>
 
     <div id="printableContainer" class="container mx-auto">
@@ -44,7 +60,11 @@
                 @endforeach
             </tbody>
         </table>
+        <div class="flex justify-end p-5 font-bold">
+            <span>Total : ₱ {{ number_format($transactions->sum('amount'), 2) }}</span>
+        </div>
     </div>
+
     <style>
         @media print {
             .no-print {
