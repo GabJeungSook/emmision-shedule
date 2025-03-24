@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('vehicle_id')->constrained();
             $table->foreignId('user_id')->constrained();
             $table->string('transaction_number');
+            $table->string('reference_number')->nullable();
             $table->string('amount');
             $table->string('paid_amount')->nullable();
             $table->string('balance')->nullable();

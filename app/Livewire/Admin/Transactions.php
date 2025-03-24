@@ -31,11 +31,12 @@ class Transactions extends Component implements HasForms, HasTable
             ->query(UserPayment::query())
             ->columns([
                 TextColumn::make('user.userDetails.fullName')->searchable()->label('Full Name'),
-                TextColumn::make('transaction_number')->searchable()->label('Reference Number'),
+                TextColumn::make('transaction_number')->searchable()->label('Transaction Number'),
                 TextColumn::make('application.schedule.date')->label('Schedule Date')->date('F j, Y'),
                 TextColumn::make('application.convertHour')->label('Time'),
                 TextColumn::make('payment_method')->label('Payment Method')->formatStateUsing(fn (?string $state) => strtoupper($state)),
                 TextColumn::make('vehicle.name')->label('Vehicle'),
+                TextColumn::make('reference_number')->searchable()->label('Reference Number'),
                 TextColumn::make('amount')->label('Amount')->formatStateUsing(fn (?string $state) => '₱ '.number_format($state, 2)),
                 TextColumn::make('paid_amount')->label('Paid Amount')->formatStateUsing(fn (?string $state) => '₱ '.number_format($state, 2)),
                 TextColumn::make('balance')->label('Balance')->formatStateUsing(fn (?string $state) => '₱ '.number_format($state, 2)),
@@ -80,37 +81,37 @@ class Transactions extends Component implements HasForms, HasTable
                     $number = $record->user->userDetails->phone;
                     $message = 'EMISSION TEST PAYMENT\nYour payment for the emission test has been approved.\nTransaction number: ' . $record->transaction_number.'\nSchedule: ' .Carbon::parse($record->application->schedule->date)->format('F d, Y').' - ('.$record->application->convertHour.')'.' \nAmount: ' . $record->amount.' \nPayment Method: ' . $record->payment_method;
 
-                    $response = $smsService->sendSms($number, $message);
+                    // $response = $smsService->sendSms($number, $message);
 
-                    if (!$number) {
-                        Notification::make()
-                            ->title('SMS Failed')
-                            ->danger()
-                            ->body('The phone number is missing or invalid.')
-                            ->send();
+                    // if (!$number) {
+                    //     Notification::make()
+                    //         ->title('SMS Failed')
+                    //         ->danger()
+                    //         ->body('The phone number is missing or invalid.')
+                    //         ->send();
 
-                        return;
-                    }
+                    //     return;
+                    // }
 
-                    if (isset($response['error']) && $response['error']) {
-                        Notification::make()
-                            ->title('SMS Failed')
-                            ->danger()
-                            ->body('Failed to send SMS: ' . $response['message'])
-                            ->send();
-                    } else {
-                        Notification::make()
-                        ->title('Payment approved')
-                        ->body('SMS sent to ' . $number)
-                        ->success()
-                        ->send();
-                    }
+                    // if (isset($response['error']) && $response['error']) {
+                    //     Notification::make()
+                    //         ->title('SMS Failed')
+                    //         ->danger()
+                    //         ->body('Failed to send SMS: ' . $response['message'])
+                    //         ->send();
+                    // } else {
+                    //     Notification::make()
+                    //     ->title('Payment approved')
+                    //     ->body('SMS sent to ' . $number)
+                    //     ->success()
+                    //     ->send();
+                    // }
 
-                    // Notification::make()
-                    // ->title('Payment approved')
-                    // ->body('Transaction can now proceed to emission')
-                    // ->success()
-                    // ->send();
+                    Notification::make()
+                    ->title('Payment approved')
+                    ->body('Transaction can now proceed to emission')
+                    ->success()
+                    ->send();
                 })->requiresConfirmation()->visible(fn ($record) => $record->status === "Pending" && $record->balance === '0'),
                 Tables\Actions\Action::make('Reject Payment')
                 ->icon('heroicon-s-x-circle')

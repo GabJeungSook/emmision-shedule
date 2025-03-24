@@ -16,7 +16,7 @@
                   <dd class="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0">{{$record->user->userDetails->fullName}}</dd>
                 </div>
                <div class="bg-white px-4 py-1 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
-                 <dt class="text-sm/6 font-medium text-gray-900">Reference Number</dt>
+                 <dt class="text-sm/6 font-medium text-gray-900">Transaction Number</dt>
                  <dd class="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0">{{$record->transaction_number}}</dd>
                </div>
                <div class="bg-gray-50 px-4 py-1 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
@@ -40,6 +40,10 @@
                  <dd class="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0 uppercase">{{$record->status}}</dd>
                </div>
                <div class="bg-white px-4 py-1 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
+                <dt class="text-sm/6 font-medium text-gray-900">Reference Number</dt>
+                <dd class="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0">{{ $record->reference_number }}</dd>
+              </div>
+               <div class="bg-gray-50 px-4 py-1 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
                 <dt class="text-sm/6 font-medium text-gray-900">Payment</dt>
                 <dd class="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0">{{ '₱ '.number_format($record->amount, 2) }}</dd>
               </div>

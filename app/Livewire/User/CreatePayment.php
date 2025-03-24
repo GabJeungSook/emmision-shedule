@@ -56,7 +56,7 @@ class CreatePayment extends Component implements HasForms
             ->schema([
                 Hidden::make('user_id'),
                 Hidden::make('application_id'),
-                TextInput::make('transaction_number')->label('Reference Number')->readOnly(),
+                TextInput::make('transaction_number')->label('Transaction Number')->readOnly(),
                 Hidden::make('status'),
                 // Select::make('vehicle_id')
                 // ->label('Vehicle')
@@ -69,6 +69,7 @@ class CreatePayment extends Component implements HasForms
                 ->label('Vehicle')
                 ->formatStateUsing(fn ($record) => $this->user->userDetails->vehicle->name)->readOnly()
                 ->required(),
+                TextInput::make('reference_number')->label('Reference Number')->required(),
                 Grid::make(3)
                 ->schema([
                     TextInput::make('amount')->label('Total Amount')->readOnly()->required(),
