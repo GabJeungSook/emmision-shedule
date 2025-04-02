@@ -21,7 +21,8 @@
             <tbody>
                 @foreach($users as $user)
                     <tr class="">
-                        <td class="py-2 px-4 border-b border-gray-200">{{ $user->userDetails->fullname }}</td>
+                        <td class="py-2 px-4 border-b border-gray-200">{{ $user->userDetails?bash
+                        ->fullname }}</td>
                         <td class="py-2 px-4 border-b border-gray-200">{{ $user->userDetails->address }}</td>
                         <td class="py-2 px-4 border-b border-gray-200 uppercase">{{ $user->userDetails->gender }}</td>
                         <td class="py-2 px-4 border-b border-gray-200">{{ $user->userDetails->phone }}</td>
