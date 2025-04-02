@@ -11,7 +11,7 @@ class UserReport extends Component
 
     public function mount()
     {
-        $this->users = User::where('role', 'user')->get();
+        $this->users = User::where('role', 'user')->whereHas('userDetails')->get();
     }
 
     public function render()
